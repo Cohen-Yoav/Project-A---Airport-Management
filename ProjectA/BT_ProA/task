@@ -1,0 +1,10 @@
+active main function
+write to a file the plan
+read from the file line by line
+each action send to simulator
+
+num_of_planes + list
+num_of_lanes + list
+timer
+fuel function
+airspace
