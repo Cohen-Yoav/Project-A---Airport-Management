@@ -41,19 +41,24 @@ class Simulator(Subject, Observer):
                 # print(f'action - ', self._current_action)
                 # print(f'plane num - ', self._current_plane)
                 # print(f'action start time - ', self._current_start_time)
+                # print("")
                 self.notify()
             if self._Finished_Actions == True:
                 return
                 
     def update(self, subject):
+        
         # print(f'Simulator update - timer = ', self._timer)
-        if self._start_sim == True:
-            self._start_sim = False
-            self.run_simulator()
-            
+        # print("")
+        
         self._Finished_Actions = subject._Finished_Actions
         if self._Finished_Actions == False:
             self._current_start_time = float(subject.start_time_ws[subject.index])
             self._current_action = subject.actions[subject.index]
             self._current_plane = int(subject.pl_number_no_ws[subject.index])
+            
+        if self._start_sim == True:
+            self._start_sim = False
+            self.run_simulator()
+            
         

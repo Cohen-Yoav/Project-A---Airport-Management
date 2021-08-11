@@ -1,22 +1,44 @@
 import time
 from hy_observer import Observer
 
-class MyState():
-    def __init__(self, num_of_planes, num_of_lanes, fuel_delta):
-        self.num_of_planes = num_of_planes
-        self.num_of_lanes = num_of_lanes
-        self.planes_vector = [0 for i in range(num_of_planes)]
-        self.lanes_vector = [-1 for i in range(num_of_lanes)]
+class MyState(Observer):
+    
+    def __init__(self, fuel_delta):
+        self.num_of_planes = 0
+        self.num_of_lanes = 0
+        count = 0
+        
+        config_f = open('ProjectA/BT_ProA/configs/config0.txt', 'r')
+        for line in config_f:
+            num = line.split('=')[1].strip()
+            
+            if count == 0:
+                self.num_of_planes = int(num)
+
+            elif count == 1:
+                self.num_of_lanes = int(num)
+
+            elif count > 1:
+
+                break
+            count += 1
+        config_f.close()
+            
+        self.planes_vector = [0 for i in range(self.num_of_planes)]
+        self.lanes_vector = [-1 for i in range(self.num_of_lanes)]
         self.airspace = False
         self.fuel_delta = fuel_delta
         self.current_taken_lanes = 0
         
     def print_state(self):
-        print(f'num of planes: ', self.num_of_planes)
-        print(f'Plane List: ', self.planes_vector[:])
-        print(f'num of lanes: ', self.num_of_lanes)
-        print(f'Lane List: ', self.lanes_vector[:])
-        print(f'AirSpace is: ',self.airspace)
+        print(f'num of planes:', self.num_of_planes)
+        # print(f'Plane List:', self.planes_vector[:])
+        action_list = [self.IntgerToAction(element) for element in self.planes_vector ]
+        print(f'Plane List:', action_list[:])
+        
+        print(f'num of lanes:', self.num_of_lanes)
+        print(f'Lane List:', self.lanes_vector[:])
+        print(f'AirSpace is:',self.airspace)
     
     def UpdateState(self, PlaneIndex, action):
                 
@@ -25,6 +47,7 @@ class MyState():
                 if self.lanes_vector[i] == -1:
                     self.lanes_vector[i] = PlaneIndex
                     self.current_taken_lanes += 1
+                    break;
                     #curr_plane_taken counter!!!
                     
         if action == "eto" or action == "et":
@@ -32,6 +55,7 @@ class MyState():
                 if self.lanes_vector[i] == PlaneIndex:
                     self.lanes_vector[i] = -1
                     self.current_taken_lanes -= 1
+                    break;
                     
         if action == "sto" or action=="sl":
             self.airspace = True
@@ -57,7 +81,7 @@ class MyState():
             8: "el",        # End Landing
             9: "st",        # Start Taxi
             10: "et",       # End Taxi
-            11: "done",     # Finale state
+            11: "done",     # Final state
         }
         return switcher.get(argument, "nothing")
     
@@ -109,4 +133,9 @@ class MyState():
             new_config.write('plane' + i + '    ' + start_day_min + '   ' + start_day_max + '   ' + mission_duration + '   ' + max_fuel + '   ' + end_day + '   ' + status + '\n')
         
         new_config.close()
+        
+    def update(self, subject):
+        self.UpdateState(subject._current_plane, subject._current_action)
+        self.print_state()
+        print("")
         

@@ -113,10 +113,10 @@ for v in g:
     print("node {} -".format(v.get_id()))
     print("parents: ", end ="")
     for w in v.get_parents():
-        print ("{}".format(w.get_id()), end ="")
+        print ("{},".format(w.get_id()), end ="")
     print("")
     print("childs: ", end ="")
     for w in v.get_childs():
-        print ("{}".format(w.get_id()), end ="")
+        print ("{},".format(w.get_id()), end ="")
     print("")
     print("")
