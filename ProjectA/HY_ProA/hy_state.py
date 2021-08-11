@@ -1,29 +1,14 @@
 import time
 from hy_observer import Observer
+from hy_config import config_file
 
 class MyState(Observer):
     
     def __init__(self, fuel_delta):
-        self.num_of_planes = 0
-        self.num_of_lanes = 0
-        count = 0
         
-        config_f = open('ProjectA/BT_ProA/configs/config0.txt', 'r')
-        for line in config_f:
-            num = line.split('=')[1].strip()
-            
-            if count == 0:
-                self.num_of_planes = int(num)
-
-            elif count == 1:
-                self.num_of_lanes = int(num)
-
-            elif count > 1:
-
-                break
-            count += 1
-        config_f.close()
-            
+        self.config = config_file('ProjectA/BT_ProA/configs/config0.txt', 'r')
+        self.num_of_planes = int(self.config.num_of_planes)
+        self.num_of_lanes = int(self.config.num_of_lanes)
         self.planes_vector = [0 for i in range(self.num_of_planes)]
         self.lanes_vector = [-1 for i in range(self.num_of_lanes)]
         self.airspace = False
@@ -31,6 +16,7 @@ class MyState(Observer):
         self.current_taken_lanes = 0
         
     def print_state(self):
+        
         print(f'num of planes:', self.num_of_planes)
         # print(f'Plane List:', self.planes_vector[:])
         action_list = [self.IntgerToAction(element) for element in self.planes_vector ]
