@@ -93,13 +93,12 @@ class MyState(Observer):
         # if we don't understand a parameter it will get the value 42... find out why ;-)
         # it is for us to know and for you to find out HAHAHA
         
-        old_config = open('configs/config0', 'r')
-        
+        # old_config = open('configs/config0', 'r')
+        # new_config = config_file('ProjectA/BT_ProA/configs/config1.txt', 'w')
         new_config = open('configs/config1.txt','w')
         new_config.write('number_of_planes = ' + self.num_of_planes + '\n')
         new_config.write('number_of_lanes = ' + self.num_of_lanes + '\n')
-        new_config.write('max_run_time = ' + 42 + '\n')
-        new_config.write('plane id  start day min   start day max   mission duration    max fuel    end day     status\n')
+        new_config.write('max_run_time = ' + self.config.max_run_time + '\n')
         
         mission_duration = '42'
         max_fuel = '42'

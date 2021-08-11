@@ -9,8 +9,10 @@ class config_line():
         self.end_day = cfg_line[5]
         self.status = cfg_line[6]
         
+        
 class config_file():
     def __init__(self, path, permission ):
+        self.file = open(path, permission)
         self.num_of_planes = 0
         self.num_of_lanes = 0
         self.max_run_time = 0
@@ -19,13 +21,14 @@ class config_file():
         if permission == 'r':
             self.set_config_file(path, permission)
         else:
-            f = open(path, permission)
+            pass
+        
+        self.file.close()
     
     def set_config_file(self, path, permission):
         config_lines = {}
         count = 0
-        f = open(path, permission)
-        for line in f:
+        for line in self.file:
             # each line in the config file is:
             # 1. striped from all extra white spaces 
             # 2. stripped from all commenets
@@ -41,9 +44,6 @@ class config_file():
         
         for i in range (3, count):
             self.config_line_lst.append(config_line(config_lines[i]))
-            
-        f.close()
-
 
 if __name__ == "__main__":
     config = config_file('ProjectA/BT_ProA/configs/config0.txt', 'r')
