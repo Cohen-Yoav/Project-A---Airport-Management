@@ -12,6 +12,7 @@ class Simulator(Subject, Observer):
         self._Finished_Actions = False
         self._start_sim = True
         self._observers: List[Observer] = []
+        self._pause_flag = False
         
     def attach(self, observer):
         """
@@ -45,6 +46,8 @@ class Simulator(Subject, Observer):
                 self.notify()
             if self._Finished_Actions == True:
                 return
+            while self._pause_flag == True:
+                pass
                 
     def update(self, subject):
         

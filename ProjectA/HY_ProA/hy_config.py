@@ -1,6 +1,7 @@
 class config_line():
     def __init__(self, cfg_line):
         self.lst = cfg_line
+        # single digit id plane number - TODO H&Y fix it
         self.id = cfg_line[0][-1]
         self.start_day_min = cfg_line[1]
         self.start_day_max = cfg_line[2]
@@ -11,7 +12,7 @@ class config_line():
         
         
 class config_file():
-    def __init__(self, path, permission ):
+    def __init__(self, path, permission):
         self.file = open(path, permission)
         self.num_of_planes = 0
         self.num_of_lanes = 0

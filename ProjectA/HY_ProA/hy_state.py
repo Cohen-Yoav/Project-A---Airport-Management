@@ -85,7 +85,7 @@ class MyState(Observer):
             "el"    : 8,        # End Landing
             "st"    : 9,        # Start Taxi
             "et"    : 10,       # End Taxi
-            "done"  : 11,       # Finale state
+            "done"  : 11,       # Final state
         }
         return switcher.get(argument, -1)
     
@@ -93,34 +93,35 @@ class MyState(Observer):
         # if we don't understand a parameter it will get the value 42... find out why ;-)
         # it is for us to know and for you to find out HAHAHA
         
-        # old_config = open('configs/config0', 'r')
-        # new_config = config_file('ProjectA/BT_ProA/configs/config1.txt', 'w')
-        new_config = open('configs/config1.txt','w')
-        new_config.write('number_of_planes = ' + self.num_of_planes + '\n')
-        new_config.write('number_of_lanes = ' + self.num_of_lanes + '\n')
-        new_config.write('max_run_time = ' + self.config.max_run_time + '\n')
-        
-        mission_duration = '42'
-        max_fuel = '42'
+        new_config = open('ProjectA/BT_ProA/configs/config1.txt','w')
+        new_config.write('number_of_planes = ' + str(self.num_of_planes) + '\n')
+        new_config.write('number_of_lanes = ' + str(self.num_of_lanes) + '\n')
+        new_config.write('max_run_time = ' + str(self.config.max_run_time) + '\n')
         
         for i in range(self.num_of_planes):
             status = self.planes_vector[i]
-            if self.planes_vector[i] < 4 or self.planes_vector[i] > 7:
-                start_day_min = '0'
-                start_day_max = '42'
-                end_day = '42'
+            start_day_min = self.config.config_line_lst[i].start_day_min
+            start_day_max = self.config.config_line_lst[i].start_day_max
+            mission_duration = self.config.config_line_lst[i].mission_duration
+            max_fuel = self.config.config_line_lst[i].max_fuel
+            end_day = self.config.config_line_lst[i].end_day
+            
+            # if self.planes_vector[i] < 4 or self.planes_vector[i] > 7:
                 
-            else:
-                start_day_min = '00'
-                start_day_max = '00'
-                end_day = '00'
+            # else:
                 
-            new_config.write('plane' + i + '    ' + start_day_min + '   ' + start_day_max + '   ' + mission_duration + '   ' + max_fuel + '   ' + end_day + '   ' + status + '\n')
+            new_config.write('plane' + str(i) + '    ' + start_day_min + '   ' + start_day_max + '   ' + 
+                             mission_duration + '   ' + max_fuel + '   ' + end_day + '   ' + str(status) + '\n')
         
         new_config.close()
         
     def update(self, subject):
         self.UpdateState(subject._current_plane, subject._current_action)
         self.print_state()
+        self.StateToConfig()
         print("")
         
+if __name__ == "__main__":
+    ms = MyState(5)
+    ms.print_state()
+    ms.StateToConfig()
