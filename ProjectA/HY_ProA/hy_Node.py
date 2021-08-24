@@ -1,3 +1,5 @@
+import time
+
 def get_plane_num(line):
     pl_num =  line.split(':')[0:1]
     pl_num = pl_num[0].split('_')[2:3][0]
@@ -11,6 +13,7 @@ class hy_Node:
         self.pl_num = pl_num
         self.id = action + pl_num
         self.time = time
+        self.action_ended = False
         self.parents = {}
         self.childs = {}
         
@@ -31,6 +34,12 @@ class hy_Node:
     
     def get_id(self):
         return self.id
+    
+    def check_if_parents_done(self):
+        for p in self.parents.values():
+            while p.action_ended == False:
+                print("22222")
+                time.sleep(1);
 
 # represent the data structure of an STN as a graph   
 class Graph:
@@ -56,7 +65,7 @@ class Graph:
            
         log.close()   
     
-        log = open('log_output.txt', 'r')
+        log = open('log_output.txt', 'r') # made in china (config)
         
         # convert the parent list to a dict and insert it to the relavent node
         for line in log:
@@ -106,17 +115,19 @@ class Graph:
     def get_vertices(self):
         return self.vert_dict.keys()
     
-          
-g = Graph()
 
-for v in g:
-    print("node {} -".format(v.get_id()))
-    print("parents: ", end ="")
-    for w in v.get_parents():
-        print ("{},".format(w.get_id()), end ="")
-    print("")
-    print("childs: ", end ="")
-    for w in v.get_childs():
-        print ("{},".format(w.get_id()), end ="")
-    print("")
-    print("")
+if __name__ == "__main__":    
+    pass     
+    # g = Graph()
+
+    # for v in g:
+    #     print("node {} -".format(v.get_id()))
+    #     print("parents: ", end ="")
+    #     for w in v.get_parents():
+    #         print ("{}, ".format(w.get_id()), end ="")
+    #     print("")
+    #     print("childs: ", end ="")
+    #     for w in v.get_childs():
+    #         print ("{}, ".format(w.get_id()), end ="")
+    #     print("")
+    #     print("")

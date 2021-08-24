@@ -2,6 +2,7 @@ from hy_observer import Observer
 from hy_subject import Subject
 import time
 from typing import List
+from hy_Node import Graph
 
 class Simulator(Subject, Observer):
     def __init__(self):
@@ -13,6 +14,7 @@ class Simulator(Subject, Observer):
         self._start_sim = True
         self._observers: List[Observer] = []
         self._pause_flag = False
+        self.stn_graph = Graph()                # This line was written by Hodaya Cohen Adiv Kavod !
         
     def attach(self, observer):
         """
@@ -43,7 +45,11 @@ class Simulator(Subject, Observer):
                 # print(f'plane num - ', self._current_plane)
                 # print(f'action start time - ', self._current_start_time)
                 # print("")
+                
+                # in this point we finished the current action and we need to update the graph 
+                self.stn_graph.vert_dict[self._current_action + str(self._current_plane)].action_ended = True
                 self.notify()
+                
             if self._Finished_Actions == True:
                 return
             while self._pause_flag == True:
@@ -60,8 +66,18 @@ class Simulator(Subject, Observer):
             self._current_action = subject.actions[subject.index]
             self._current_plane = int(subject.pl_number_no_ws[subject.index])
             
+            # check with graph if the action parents are done
+            # only then we can start doing the action
+            print(self._current_action)
+            print(self._current_plane)
+            print(self._current_action + str(self._current_plane))
+            print(self.stn_graph.vert_dict[self._current_action + str(self._current_plane)])
+            self.stn_graph.vert_dict[self._current_action + str(self._current_plane)].check_if_parents_done()
+            
+            
         if self._start_sim == True:
             self._start_sim = False
             self.run_simulator()
             
-        
+if __name__ == "__main__":    
+    pass     

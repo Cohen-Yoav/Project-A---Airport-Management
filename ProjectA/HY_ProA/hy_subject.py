@@ -2,9 +2,9 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 class Subject(ABC):
-    # """
-    # The Subject interface declares a set of methods for managing subscribers.
-    # """
+    """
+    The Subject interface declares a set of methods for managing subscribers.
+    """
     
     @abstractmethod
     def attach(self, observer):

@@ -1,4 +1,9 @@
 from hy_state import MyState
+
+"""
+This test check the state module
+"""
+
 def test():
     mystate = MyState(3, 2, 10)
     mystate.print_state()

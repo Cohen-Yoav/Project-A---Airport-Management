@@ -2,8 +2,18 @@ import time
 from hy_observer import Observer
 from hy_config import config_file
 
+"""
+A State describe the current conditions of all the planes and lanes in the problem.
+State is a mutable object.
+"""
 class MyState(Observer):
     
+    """
+    c`tor of State
+        @requires fuel_delta != None
+        @modifies 
+        @effects Creates a new State with self.fuel_delta
+    """
     def __init__(self, fuel_delta):
         
         self.config = config_file('ProjectA/BT_ProA/configs/config0.txt', 'r')
@@ -89,9 +99,8 @@ class MyState(Observer):
         }
         return switcher.get(argument, -1)
     
-    def StateToConfig(self, time):
-        # if we don't understand a parameter it will get the value 42... find out why ;-)
-        # it is for us to know and for you to find out HAHAHA
+    def StateToConfig(self):
+        # how do we take the time in to account?
         
         new_config = open('ProjectA/BT_ProA/configs/config1.txt','w')
         new_config.write('number_of_planes = ' + str(self.num_of_planes) + '\n')
@@ -105,10 +114,14 @@ class MyState(Observer):
             mission_duration = self.config.config_line_lst[i].mission_duration
             max_fuel = self.config.config_line_lst[i].max_fuel
             end_day = self.config.config_line_lst[i].end_day
-            
-            # if self.planes_vector[i] < 4 or self.planes_vector[i] > 7:
-                
-            # else:
+        
+            if self.planes_vector[i] < 4:
+                status = 1
+            elif self.planes_vector[i] > 7:
+                # to be continued- 42 :)
+                continue
+            else:
+                status = 5
                 
             new_config.write('plane' + str(i) + '    ' + start_day_min + '   ' + start_day_max + '   ' + 
                              mission_duration + '   ' + max_fuel + '   ' + end_day + '   ' + str(status) + '\n')
@@ -117,11 +130,11 @@ class MyState(Observer):
         
     def update(self, subject):
         self.UpdateState(subject._current_plane, subject._current_action)
-        self.print_state()
-        self.StateToConfig()
-        print("")
+        # self.print_state()
+        # self.StateToConfig()
+        # print("")
         
 if __name__ == "__main__":
-    ms = MyState(5)
-    ms.print_state()
-    ms.StateToConfig()
+    pass
+    # ms = MyState(5)
+    # ms.print_state()

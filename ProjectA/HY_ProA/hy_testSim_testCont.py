@@ -3,6 +3,10 @@ from hy_simulator import Simulator
 from hy_state import MyState
 import time
 
+"""
+This is the main test that activate the Controller, Simulator and State modules
+"""
+
 if __name__ == "__main__":
     cont = Controller()
     sim = Simulator()

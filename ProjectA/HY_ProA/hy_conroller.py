@@ -49,9 +49,13 @@ class Controller(Observer, Subject):
     def update(self, subject):
         # print(f'Controller update - index = ', self.index)
         self.index += 1
-        if self.index >= len(self.actions): #TODO FIXME h & y
+        if self.index >= len(self.actions): #TODO FIXME h & y - נראלי סבבה, רק צריך לבדוק את הפעולה האחרונה, אם היא מודפסת (שלא מפספסים)
             self._Finished_Actions = True
         self.notify()
         
     
-
+# אירוע שכל ההורים שלו סיימו - אפשר לדחות.
+# אבל צריך לבדוק מבחינת זמן, אם זה מסתדר שם.
+# אירוע שההורים שלו לא סיימו - אי אפשר לדחות אותו, וצריך לדחות הורה?
+if __name__ == "__main__":    
+    pass     

@@ -1,6 +1,0 @@
-number_of_planes = 3
-number_of_lanes = 2
-max_run_time = 3
-plane0    0   10   40   90   200   2
-plane1    00   00   10   20   00   10
-plane2    00   00   20   31   00   7
