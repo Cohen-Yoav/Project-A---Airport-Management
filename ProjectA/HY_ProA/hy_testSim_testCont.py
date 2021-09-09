@@ -8,7 +8,7 @@ This is the main test that activate the Controller, Simulator and State modules
 """
 
 if __name__ == "__main__":
-    cont = Controller()
+    cont = Controller(1)
     sim = Simulator()
     state = MyState(10)
 

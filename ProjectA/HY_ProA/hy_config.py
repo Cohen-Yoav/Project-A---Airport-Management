@@ -1,3 +1,4 @@
+
 class config_line():
     def __init__(self, cfg_line):
         self.lst = cfg_line

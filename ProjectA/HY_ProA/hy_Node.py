@@ -39,7 +39,7 @@ class hy_Node:
         for p in self.parents.values():
             while p.action_ended == False:
                 print("22222")
-                time.sleep(1);
+                time.sleep(1)
 
 # represent the data structure of an STN as a graph   
 class Graph:
@@ -118,16 +118,16 @@ class Graph:
 
 if __name__ == "__main__":    
     pass     
-    # g = Graph()
+    g = Graph()
 
-    # for v in g:
-    #     print("node {} -".format(v.get_id()))
-    #     print("parents: ", end ="")
-    #     for w in v.get_parents():
-    #         print ("{}, ".format(w.get_id()), end ="")
-    #     print("")
-    #     print("childs: ", end ="")
-    #     for w in v.get_childs():
-    #         print ("{}, ".format(w.get_id()), end ="")
-    #     print("")
-    #     print("")
+    for v in g:
+        print("node {} -".format(v.get_id()))
+        print("parents: ", end ="")
+        for w in v.get_parents():
+            print ("{}, ".format(w.get_id()), end ="")
+        print("")
+        print("childs: ", end ="")
+        for w in v.get_childs():
+            print ("{}, ".format(w.get_id()), end ="")
+        print("")
+        print("")
