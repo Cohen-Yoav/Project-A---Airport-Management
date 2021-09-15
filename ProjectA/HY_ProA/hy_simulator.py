@@ -2,6 +2,7 @@ from hy_observer import Observer
 from hy_subject import Subject
 import time
 from typing import List
+from hy_clock import Clock
 
 
 class Simulator(Subject, Observer):
@@ -15,6 +16,7 @@ class Simulator(Subject, Observer):
         self._start_sim = True
         self._observers: List[Observer] = []
         self._pause_flag = False
+        self.clock = Clock()
 
         
     def attach(self, observer):

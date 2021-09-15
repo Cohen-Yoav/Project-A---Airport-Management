@@ -13,12 +13,19 @@ class hy_Node:
         self.pl_num = pl_num
         self.id = action + pl_num
         self.time = time
+        self.sorted_time = time
         self.action_ended = False
         self.parents = {}
         self.childs = {}
         
     def __str__(self):
         return self.action +" " + self.pl_num
+    
+    def __lt__(self, other):
+        return self.sorted_time < other.sorted_time
+    
+    def __repr__(self) -> str:
+        return self.id
     
     def add_parent(self, parent_id, parent):
         self.parents[parent_id] = parent

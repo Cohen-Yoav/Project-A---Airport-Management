@@ -2,43 +2,25 @@ from hy_observer import Observer
 from hy_subject import Subject
 from typing import List
 from hy_Node import Graph
+from hy_clock import Clock
+import heapq
 
 class Controller(Observer, Subject):
     
-    """
-    send event to sim - sim respon with event stated
-    afte x sec - send event action done
-    disturbed - random number
-    add PQ by time
-    """
-    def __init__(self, skew):
+    def __init__(self):
         
-        self.index = -1
         self._Finished_Actions = False
         self._observers: List[Observer] = []
+        self.clock = Clock()
+        self.stn_graph = Graph()
+        self.heap = list(self.stn_graph.vert_dict.values())
+        heapq.heapify(self.heap)
+        
+        self.curr_node = None
+        self.signal = None
         
         # check with graph if the action parents are done - TODO Hַ&Y
         # in this point we finished the current action and we need to update the graph 
-        self.stn_graph = Graph()                # This line was written by Hodaya Cohen Adiv Kavod !
-        self.skew = skew
-        
-        ### get all the actions from the plan into a list
-        log = open('log_output.txt', 'r')
-        self.actions = [line.split('_')[1:2][0] for line in log]
-        log.close()
-        
-        ### get all the planes numbers into a list
-        log = open('log_output.txt', 'r')
-        pl_number = [line.split(':')[0:1] for line in log]
-        pl_number_con = [pn[0].split('_')[2:3][0] for pn in pl_number]
-        self.pl_number_no_ws = [pnc.replace(" ", "") for pnc in pl_number_con]
-        log.close()
-        
-        ### get all the start time of each action into a list
-        log = open('log_output.txt', 'r')
-        start_time = [line.split(':')[1:2][0] for line in log]
-        self.start_time_ws = [st.strip() for st in start_time]
-        log.close()   
     
     def attach(self, observer):
         """
@@ -60,10 +42,14 @@ class Controller(Observer, Subject):
             observer.update(self)     
     
     def update(self, subject):
-        # print(f'Controller update - index = ', self.index)
-        self.index += 1
-        if self.index >= len(self.actions): 
-            self._Finished_Actions = True
+        # if len(self.heap) == 0:
+        #       self._Finished_Actions = True
+        # elif self.heap[0].sorted_time >= clock.get_cur_time() && self.heap[0].check_if_pearnts_done():
+        #       self.curr_node = pop self.heap[0]
+        #       raise signal start action "sa" / self.signal = EventToIntger("sa")
+        # elif self.heap[0].sorted_time >= clock.get_cur_time() && not self.heap[0].check_if_pearnts_done():
+        #       self.heap[0].sorted_time += 1  #TODO maybe add delay to children
+        #       heapq.heapify(self.heap)
         self.notify()
         
         
@@ -84,11 +70,9 @@ class Controller(Observer, Subject):
             "sta" : 2,      # Simulator starting action
             "fa"  : 3,      # Simulator finished action
             "raf" : 4,      # Controller recieved action finished from simulator
-    }
+        }
         return switcher.get(argument, -1)
     
-# אירוע שכל ההורים שלו סיימו - אפשר לדחות.
-# אבל צריך לבדוק מבחינת זמן, אם זה מסתדר שם.
-# אירוע שההורים שלו לא סיימו - אי אפשר לדחות אותו, וצריך לדחות הורה?
 if __name__ == "__main__":    
-    pass     
+    mycont = Controller()
+    print(mycont.heap)     

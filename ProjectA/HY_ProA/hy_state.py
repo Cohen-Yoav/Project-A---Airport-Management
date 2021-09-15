@@ -1,6 +1,7 @@
 import time
 from hy_observer import Observer
 from hy_config import config_file
+from hy_clock import Clock
 
 """
 A State describe the current conditions of all the planes and lanes in the problem.
@@ -24,6 +25,7 @@ class MyState(Observer):
         self.airspace = False
         self.fuel_delta = fuel_delta
         self.current_taken_lanes = 0
+        self.clock = Clock()
         
     def print_state(self):
         

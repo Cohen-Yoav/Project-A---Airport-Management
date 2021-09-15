@@ -8,7 +8,7 @@ This is the main test that activate the Controller, Simulator and State modules
 """
 
 if __name__ == "__main__":
-    cont = Controller(1)
+    cont = Controller()
     sim = Simulator()
     state = MyState(10)
 
@@ -16,4 +16,7 @@ if __name__ == "__main__":
     sim.attach(state)
     sim.attach(cont)
 
+    print(cont.clock.get_cur_time())
+    time.sleep(5)
+    print(sim.clock.get_cur_time())
     cont.update(sim)
