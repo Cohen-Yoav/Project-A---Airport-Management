@@ -9,6 +9,7 @@ class Controller(Observer, Subject):
     send event to sim - sim respon with event stated
     afte x sec - send event action done
     disturbed - random number
+    add PQ by time
     """
     def __init__(self, skew):
         
