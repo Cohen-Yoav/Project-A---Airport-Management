@@ -1,80 +1,87 @@
 from hy_observer import Observer
-from hy_subject import Subject
-import time
-from typing import List
-from hy_clock import Clock
+import heapq
+from hy_events import events
 
-
-class Simulator(Subject, Observer):
+class Simulator(Observer):
     def __init__(self):
-        self._timer = 0
-        self._current_start_time = 0.0
-        self._current_action = ""
-        self._current_plane = 0
-        self._current_action_duration = 0
-        self._Finished_Actions = False
-        self._start_sim = True
-        self._observers: List[Observer] = []
-        self._pause_flag = False
-        self.clock = Clock()
-
-        
-    def attach(self, observer):
-        """
-        Attach an observer to the subject.
-        """
-        self._observers.append(observer)
-    
-    def detach(self, observer):
-        """
-        Detach an observer from the subject.
-        """
-        pass
-
-    def notify(self):
-        """
-        Notify all observers about an event.
-        """
-        for observer in self._observers:
-            observer.update(self)
-            
-    def run_simulator(self):
-        self._timer = time.time()
-        
-        while True:            
-            if time.time() - self._timer >= self._current_start_time:# + action_duration/ mission_duration:
-                # print(f'time - ', time.time() - self._timer)
-                # print(f'action - ', self._current_action)
-                # print(f'plane num - ', self._current_plane)
-                # print(f'action start time - ', self._current_start_time)
-                # print("")
-                
-                self.notify()
-                
-            if self._Finished_Actions == True:
-                return
-            while self._pause_flag == True:
-                pass
+        self.heap = []
+        self.finished_node = None
+        self.signals = events()
                 
     def update(self, subject):
+        # print("simulator - {}".format(subject.value))
+
+        curr_node = self.signals.get_event_val("sa")
         
-        # print(f'Simulator update - timer = ', self._timer)
-        # print("")
+        duration = self.signals.get_event_val("rand")
+        if duration != False and curr_node != False:
+            print("")
+            print("Added {} time units to action {}".format(duration, curr_node))
+            print("")
+            curr_node.sorted_time += duration
+            self.signals.set_event("rand", False)
+            
+        while curr_node != False:
+            heapq.heappush(self.heap, curr_node)
+            print("Simulator started - {}, time is - {}".format(curr_node, subject.value))
+            curr_node = self.signals.get_event_val("sa")
+        self.signals.set_event("ra", True)
         
-        self._Finished_Actions = subject._Finished_Actions
-        if self._Finished_Actions == False:
-            self._current_start_time = float(subject.start_time_ws[subject.index]) / float(subject.skew)
-            self._current_action = subject.actions[subject.index]
-            self._current_plane = int(subject.pl_number_no_ws[subject.index])
+        for node in self.heap:
+            node.sorted_time -= subject.epsilon
+        
+        if len(self.heap) == 0:
+            if self.signals.get_event_val("cd") == True:
+                print("Simulator Done")
+                print("")
+                self.signals.set_event("sd", True)
+            return
+        
+        if self.heap[0].sorted_time <= 0:
+            self.finished_node = heapq.heappop(self.heap)
+            self.signals.set_event("fa", self.finished_node)
+            print("action done - {}, time is - {}".format(self.finished_node, subject.value))
+            print("") 
+        
+        
+        # while self.heap[0].sorted_time <= 0:
+        #     self.finished_node = heapq.heappop(self.heap)
+        #     self.signals.set_event("fa", self.finished_node)
+        #     print("action done - {}, time is - {}".format(self.finished_node, subject.value))
+        #     print("")
+        #     if len(self.heap) == 0:
+        #         break
+        
+        
+        # print("sim")
+        # # update all actions - V
+        # # insert new action - V
+        # # pop finished action and raise signal - V
+        # # call notify - V
+        
+        # if self.signals.get_event_val("sa") == 1:
+        #     heapq.heappush(self.heap, subject.curr_node)
+        #     self.signals.set_event("sa", False)
+        #     self.signals.set_event("ra", True)
             
-            # print(self._current_action)
-            # print(self._current_plane)
-            # print(self._current_action + str(self._current_plane))
             
-            
-        if self._start_sim == True:
-            self._start_sim = False
-            self.run_simulator()
+        # for node in self.heap:
+        #     node.sorted_time -= self.clock.epsilon
+        # # self.signals.set_event("sta", True)
+        # self.clock.sleep_epsilon()
+        
+        # if len(self.heap) == 0:
+        #     if self.signals.get_event_val("cd") == True:
+        #         print("Simulator Done")
+        #         self.signals.set_event("sd", True)
+        #         self.notify()
+        
+        # elif self.heap[0].sorted_time <= 0 and self.signals.get_event_val("raf") == True:
+        #     self.finished_node = heapq.heappop(self.heap)
+        #     self.signals.set_event("fa", self.finished_node.id)
+        #     self.signals.set_event("raf", False)
+        
+        # self.notify()
             
 if __name__ == "__main__":    
     pass     

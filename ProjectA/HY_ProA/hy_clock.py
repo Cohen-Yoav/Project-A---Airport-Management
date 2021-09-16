@@ -1,7 +1,11 @@
-from threading import Lock, Thread
 import time
+from hy_observer import Observer
+from typing import List
+from threading import Lock
+from hy_subject import Subject
+from hy_observer import Observer
 
-class SingletonMeta(type):
+class SingletonMeta(Subject, Observer, type):
     """
     This is a thread-safe implementation of Singleton.
     """
@@ -35,40 +39,56 @@ class SingletonMeta(type):
                 cls._instances[cls] = instance
         return cls._instances[cls]
 
-
 class Clock(metaclass=SingletonMeta):
-    value = None
     """
     We'll use this property to prove that our Singleton really works.
     """
 
     def __init__(self) :
-        self.value = time.time()
+        self.value = -1
+        self.epsilon = 0.01
+        self.observers: List[Observer] = []
+        self.Done = False
 
-    def set_curr_time(self):
-        self.value = time.time()
+    # def set_curr_time(self):
+    #     self.value = time.time()
     
-    def get_cur_time(self):
-        return time.time() - self.value
+    # def get_cur_time(self):
+    #     return time.time() - self.value
+    
+    def sleep_epsilon(self):
+        time.sleep(self.epsilon)
+    
+    def run_clock(self):
+        while True:
+            self.value += 1
+            self.sleep_epsilon()
+            if self.Done == True:
+                print("all done :)")
+                break
+            self.notify()
+        
+    def attach(self, observer):
+        """
+        Attach an observer to the subject.
+        """
+        self.observers.append(observer)
+    
+    def detach(self, observer):
+        """
+        Detach an observer from the subject.
+        """
+        pass
 
-
-def test_singleton(value: str) -> None:
-    clock = Clock()
-    print(clock.value)
-    time.sleep(5)
-    clock.set_curr_time()
-    print(clock.value)
-
+    def notify(self):
+        """
+        Notify all observers about an event.
+        """
+        for observer in self.observers:
+            observer.update(self)   
+            
+    def update(self, subject):
+        self.Done = True
 
 if __name__ == "__main__":
-    # The client code.
-
-    print("If you see the same value, then singleton was reused (yay!)\n"
-          "If you see different values, "
-          "then 2 singletons were created (booo!!)\n\n"
-          "RESULT:\n")
-
-    process1 = Thread(target=test_singleton, args=("1",))
-    # process2 = Thread(target=test_singleton, args=("2",))
-    process1.start()
-    # process2.start()
+    pass

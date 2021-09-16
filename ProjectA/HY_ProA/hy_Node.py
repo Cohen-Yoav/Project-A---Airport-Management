@@ -13,7 +13,7 @@ class hy_Node:
         self.pl_num = pl_num
         self.id = action + pl_num
         self.time = time
-        self.sorted_time = time
+        self.sorted_time :float = float(time)
         self.action_ended = False
         self.parents = {}
         self.childs = {}
@@ -42,11 +42,16 @@ class hy_Node:
     def get_id(self):
         return self.id
     
+    """
+    check if all the parents of the node are done
+    return True if all parents are done, False otherwise
+    """
     def check_if_parents_done(self):
         for p in self.parents.values():
-            while p.action_ended == False:
-                print("22222")
-                time.sleep(1)
+            if p.action_ended == False:
+                return False
+        return True
+    
 
 # represent the data structure of an STN as a graph   
 class Graph:

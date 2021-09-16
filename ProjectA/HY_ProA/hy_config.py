@@ -49,4 +49,5 @@ class config_file():
 
 if __name__ == "__main__":
     config = config_file('ProjectA/BT_ProA/configs/config0.txt', 'r')
-    new_config = config_file('ProjectA/BT_ProA/configs/config1.txt', 'w')
+    print(config.config_line_lst[0].mission_duration)
+    print(config.config_line_lst[1].mission_duration)

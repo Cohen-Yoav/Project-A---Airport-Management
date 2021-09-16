@@ -1,32 +1,35 @@
 from hy_observer import Observer
-from hy_subject import Subject
 from typing import List
+from hy_subject import Subject
 from hy_Node import Graph
-from hy_clock import Clock
+from hy_config import config_file
+from hy_events import events
 import heapq
+
+action_duration: int = 10
 
 class Controller(Observer, Subject):
     
     def __init__(self):
         
-        self._Finished_Actions = False
-        self._observers: List[Observer] = []
-        self.clock = Clock()
+        # check with graph if the action parents are done - TODO Hַ&Y
+        # in this point we finished the current action and we need to update the graph    
         self.stn_graph = Graph()
+        self.config = config_file('ProjectA/BT_ProA/configs/config0.txt', 'r')
+
         self.heap = list(self.stn_graph.vert_dict.values())
         heapq.heapify(self.heap)
         
         self.curr_node = None
-        self.signal = None
+        self.signals = events()
         
-        # check with graph if the action parents are done - TODO Hַ&Y
-        # in this point we finished the current action and we need to update the graph 
-    
+        self.observers: List[Observer] = []
+        
     def attach(self, observer):
         """
         Attach an observer to the subject.
         """
-        self._observers.append(observer)
+        self.observers.append(observer)
     
     def detach(self, observer):
         """
@@ -38,41 +41,63 @@ class Controller(Observer, Subject):
         """
         Notify all observers about an event.
         """
-        for observer in self._observers:
-            observer.update(self)     
-    
+        for observer in self.observers:
+            observer.update(self) 
+        
     def update(self, subject):
-        # if len(self.heap) == 0:
-        #       self._Finished_Actions = True
-        # elif self.heap[0].sorted_time >= clock.get_cur_time() && self.heap[0].check_if_pearnts_done():
-        #       self.curr_node = pop self.heap[0]
-        #       raise signal start action "sa" / self.signal = EventToIntger("sa")
-        # elif self.heap[0].sorted_time >= clock.get_cur_time() && not self.heap[0].check_if_pearnts_done():
-        #       self.heap[0].sorted_time += 1  #TODO maybe add delay to children
-        #       heapq.heapify(self.heap)
-        self.notify()
+        # print("controller - {}".format(subject.value))
+        if len(self.heap) == 0:
+            self.signals.set_event("cd", True)
+            # print("Done - {}".format(subject.value))
+            return
+        
+        while float(self.heap[0].sorted_time) <= subject.value:# and self.heap[0].check_if_parents_done():
+            self.curr_node = heapq.heappop(self.heap)
+            print("Current Node - {}, time is - {}".format(self.curr_node, subject.value))
+            self.SetNodeRunTime(subject.epsilon)
+            self.signals.set_event("sa", self.curr_node)
+            self.notify()
+            if len(self.heap) == 0:
+                break
+            
+        
+            
+        # tmp_node = self.signals.get_event_val("fa")
+        # while tmp_node != False:
+        #     self.stn_graph.vert_dict[tmp_node.id].action_ended = True
+        #     tmp_node = self.signals.get_event_val("fa")
+        #     self.signals.set_event("raf", True)
         
         
-    def IntgerToEvent(argument):
-        switcher = {
-            0: "sa" ,     # Controller sent action to simulator 
-            1: "ra" ,     # Simulator recieved action from conroller
-            2: "sta",     # Simulator starting action
-            3: "fa" ,     # Simulator finished action
-            4: "raf",     # Controller recieved action finished from simulator
-        }
-        return switcher.get(argument, "nothing")
-    
-    def EventToIntger(argument):
-        switcher = {
-            "sa"  : 0,      # Controller sent action to simulator 
-            "ra"  : 1,      # Simulator recieved action from conroller
-            "sta" : 2,      # Simulator starting action
-            "fa"  : 3,      # Simulator finished action
-            "raf" : 4,      # Controller recieved action finished from simulator
-        }
-        return switcher.get(argument, -1)
-    
+        # # check if we finished all actions
+        # # check if simulator recieved an action
+        # if self.signals.get_event_val("ra") == True:
+        #     self.signals.set_event("ra", False)
+        #     if len(self.heap) == 0:
+        #         self.signals.set_event("cd", True)
+        #         print("Done - {}".format(self.clock.get_cur_time()))
+                
+        #     # check if heap[0] time has passed and all parents are done 
+        #     elif float(self.heap[0].sorted_time) <= self.clock.get_cur_time() and self.heap[0].check_if_parents_done():
+        #         self.curr_node = heapq.heappop(self.heap)
+        #         print("Current Node - {}, time is - {}".format(self.curr_node, self.clock.get_cur_time()))
+        #         self.SetNodeRunTime()
+        #         #raise signal start action "sa"
+        #         self.signals.set_event("sa", True) 
+                
+        #     # check if heap[0] time has passed and not all parents are done 
+        #     elif float(self.heap[0].sorted_time) <= self.clock.get_cur_time() and not self.heap[0].check_if_parents_done():
+        #         print("Added {} time to heap[0] {}".format(self.clock.epsilon, self.heap[0]))
+        #         self.heap[0].sorted_time += self.clock.epsilon  #TODO maybe add delay to children
+        #         self.clock.sleep_epsilon()
+        #         heapq.heapify(self.heap)
+                  
+    def SetNodeRunTime(self, skew):
+        if self.curr_node.action == "sm":
+            pl_number = int(self.curr_node.pl_num)
+            self.curr_node.sorted_time = int(self.config.config_line_lst[pl_number].mission_duration) * skew
+        else:
+            self.curr_node.sorted_time = action_duration * skew
+        
 if __name__ == "__main__":    
-    mycont = Controller()
-    print(mycont.heap)     
+    pass
