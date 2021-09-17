@@ -7,12 +7,13 @@ class events(metaclass=SingletonMeta):
     def __init__(self):
         self.events = [False for i in range(8)]
         self.events[self.EventToIntger("sa")] = []
-        self.events[self.EventToIntger("ra")] = True
-        self.events[self.EventToIntger("raf")] = True
+        self.events[self.EventToIntger("fa")] = []
         self.observers: List[Observer] = []
         
     def set_event(self, name, val):
         if name == "sa":
+            self.events[self.EventToIntger(name)].append(val)
+        elif name == "fa":
             self.events[self.EventToIntger(name)].append(val)
         else:
             self.events[self.EventToIntger(name)] = val
@@ -24,6 +25,10 @@ class events(metaclass=SingletonMeta):
         if name == "sa" and len(self.events[self.EventToIntger(name)]) != 0:
             return self.events[self.EventToIntger(name)].pop(0)
         elif name == "sa" and len(self.events[self.EventToIntger(name)]) == 0:
+            return False
+        elif name == "fa" and len(self.events[self.EventToIntger(name)]) != 0:
+            return self.events[self.EventToIntger(name)].pop(0)
+        elif name == "fa" and len(self.events[self.EventToIntger(name)]) == 0:
             return False
         return self.events[self.EventToIntger(name)]
     
@@ -37,7 +42,7 @@ class events(metaclass=SingletonMeta):
             4: "raf" ,     # Controller recieved action finished from simulator
             5: "cd"  ,     # Controller done
             6: "sd"  ,     # Simulator done
-            7: "rand",    # Random noise
+            7: "rand",     # Random noise
         }
         return switcher.get(argument, "nothing")
     

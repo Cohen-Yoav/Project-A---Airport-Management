@@ -5,6 +5,7 @@ from hy_clock import Clock
 
 class Interrupt(Observer):
     def __init__(self):
+        # number of actions to count before doing intterupt
         self.action_count = 0
         self.duration = 0
         self.signals = events()
@@ -16,10 +17,10 @@ class Interrupt(Observer):
         if self.action_count == 0:
             action_duration = subject.curr_node.sorted_time
             self.duration = random.uniform(action_duration / 2, action_duration)
-            print("--------------------------- duration is {}".format(self.duration))
+            # print("--------------------------- duration is {}".format(self.duration))
             self.signals.set_event("rand", self.duration)
             self.shuffle()
             
     def shuffle(self):
-        self.action_count = random.randrange(1,2)
+        self.action_count = 0#random.randrange(0,1)
         # self.duration = random.randrange(4, 9) * self.clock.epsilon

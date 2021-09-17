@@ -39,22 +39,23 @@ class SingletonMeta(Subject, Observer, type):
                 cls._instances[cls] = instance
         return cls._instances[cls]
 
+
 class Clock(metaclass=SingletonMeta):
     """
     We'll use this property to prove that our Singleton really works.
     """
 
     def __init__(self) :
+        # value - how many time units has passed - int
         self.value = -1
+        # epsilon - this is the time unit - float
         self.epsilon = 0.01
+        # observers - list of followeres
         self.observers: List[Observer] = []
+        # Done - bollean to say if conroller and simulator are done
         self.Done = False
-
-    # def set_curr_time(self):
-    #     self.value = time.time()
-    
-    # def get_cur_time(self):
-    #     return time.time() - self.value
+        # 
+        self.zero = self.epsilon / 100
     
     def sleep_epsilon(self):
         time.sleep(self.epsilon)

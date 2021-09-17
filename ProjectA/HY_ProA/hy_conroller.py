@@ -45,13 +45,17 @@ class Controller(Observer, Subject):
             observer.update(self) 
         
     def update(self, subject):
-        # print("controller - {}".format(subject.value))
         if len(self.heap) == 0:
             self.signals.set_event("cd", True)
-            # print("Done - {}".format(subject.value))
             return
         
-        while float(self.heap[0].sorted_time) <= subject.value:# and self.heap[0].check_if_parents_done():
+        finished_node = self.signals.get_event_val("fa")
+        while finished_node != False:
+            id = finished_node.id
+            self.stn_graph.vert_dict[id].action_ended = True
+            finished_node = self.signals.get_event_val("fa")
+            
+        while int(self.heap[0].sorted_time) <= subject.value:# and self.heap[0].check_if_parents_done():
             self.curr_node = heapq.heappop(self.heap)
             print("Current Node - {}, time is - {}".format(self.curr_node, subject.value))
             self.SetNodeRunTime(subject.epsilon)
@@ -59,6 +63,7 @@ class Controller(Observer, Subject):
             self.notify()
             if len(self.heap) == 0:
                 break
+            
             
         
             
