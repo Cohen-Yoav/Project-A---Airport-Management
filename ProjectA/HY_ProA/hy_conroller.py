@@ -7,6 +7,7 @@ from hy_events import events
 import heapq
 
 action_duration: int = 10
+action_ending: float = 0.001
 
 class Controller(Observer, Subject):
     
@@ -45,17 +46,20 @@ class Controller(Observer, Subject):
             observer.update(self) 
         
     def update(self, subject):
+        # check if conroller is done
         if len(self.heap) == 0:
             self.signals.set_event("cd", True)
             return
         
+        # check for finished actions from the simulator
         finished_node = self.signals.get_event_val("fa")
         while finished_node != False:
             id = finished_node.id
             self.stn_graph.vert_dict[id].action_ended = True
             finished_node = self.signals.get_event_val("fa")
-            
-        while int(self.heap[0].sorted_time) <= subject.value:# and self.heap[0].check_if_parents_done():
+        
+        # check for next action if ready
+        while int(self.heap[0].sorted_time) <= subject.value and self.heap[0].check_if_parents_done():
             self.curr_node = heapq.heappop(self.heap)
             print("Current Node - {}, time is - {}".format(self.curr_node, subject.value))
             self.SetNodeRunTime(subject.epsilon)
@@ -63,9 +67,12 @@ class Controller(Observer, Subject):
             self.notify()
             if len(self.heap) == 0:
                 break
-            
-            
+                
+        for node in self.heap:
+            if int(node.sorted_time) <= subject.value and not node.check_if_parents_done():
+                node.sorted_time += subject.epsilon
         
+        heapq.heapify(self.heap)
             
         # tmp_node = self.signals.get_event_val("fa")
         # while tmp_node != False:
@@ -101,6 +108,8 @@ class Controller(Observer, Subject):
         if self.curr_node.action == "sm":
             pl_number = int(self.curr_node.pl_num)
             self.curr_node.sorted_time = int(self.config.config_line_lst[pl_number].mission_duration) * skew
+        elif self.curr_node.action[0] == "e":
+            self.curr_node.sorted_time = action_ending * skew
         else:
             self.curr_node.sorted_time = action_duration * skew
         

@@ -35,28 +35,28 @@ class events(metaclass=SingletonMeta):
     @staticmethod    
     def IntgerToEvent(argument):
         switcher = {
-            0: "sa"  ,     # Controller sent action to simulator 
-            1: "ra"  ,     # Simulator recieved action from conroller
-            2: "sta" ,     # Simulator starting action
-            3: "fa"  ,     # Simulator finished action
-            4: "raf" ,     # Controller recieved action finished from simulator
-            5: "cd"  ,     # Controller done
-            6: "sd"  ,     # Simulator done
-            7: "rand",     # Random noise
+            0: "sa"         ,     # Controller sent action to simulator 
+            1: "cena"       ,     # Clock event no action
+            2: "cfa"        ,     # Simulator Clock finished action
+            3: "fa"         ,     # Simulator finished action
+            4: "raf"        ,     # Controller recieved action finished from simulator
+            5: "cd"         ,     # Controller done
+            6: "sd"         ,     # Simulator done
+            7: "rand"       ,     # Random noise
         }
         return switcher.get(argument, "nothing")
     
     @staticmethod
     def EventToIntger(argument):
         switcher = {
-            "sa"  : 0,      # Controller sent action to simulator 
-            "ra"  : 1,      # Simulator recieved action from conroller
-            "sta" : 2,      # Simulator starting action
-            "fa"  : 3,      # Simulator finished action
-            "raf" : 4,      # Controller recieved action finished from simulator
-            "cd"  : 5,      # Controller done
-            "sd"  : 6,      # Simulator done
-            "rand": 7,      # Random noise
+            "sa"    : 0,      # Controller sent action to simulator 
+            "cena"  : 1,      # Clock event no action
+            "cfa"   : 2,      # Simulator Clock finished action
+            "fa"    : 3,      # Simulator finished action
+            "raf"   : 4,      # Controller recieved action finished from simulator
+            "cd"    : 5,      # Controller done
+            "sd"    : 6,      # Simulator done
+            "rand"  : 7,      # Random noise
         }
         return switcher.get(argument, -1)
     

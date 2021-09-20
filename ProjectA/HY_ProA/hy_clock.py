@@ -45,25 +45,34 @@ class Clock(metaclass=SingletonMeta):
     We'll use this property to prove that our Singleton really works.
     """
 
-    def __init__(self) :
+    def __init__(self, events) :
         # value - how many time units has passed - int
         self.value = -1
         # epsilon - this is the time unit - float
-        self.epsilon = 0.01
+        self.epsilon = 0.001
         # observers - list of followeres
         self.observers: List[Observer] = []
         # Done - bollean to say if conroller and simulator are done
         self.Done = False
         # 
         self.zero = self.epsilon / 100
-    
+        #
+        self. signals = events
+        
     def sleep_epsilon(self):
         time.sleep(self.epsilon)
     
     def run_clock(self):
         while True:
-            self.value += 1
-            self.sleep_epsilon()
+            # if no action is done in this cycle 
+            if self.signals.get_event_val("cfa") == False:
+                self.value += 1
+                self.sleep_epsilon()
+            # if there was an action
+            else:
+                self.signals.set_event("cfa", False)
+                self.signals.set_event("cena", True)
+                
             if self.Done == True:
                 print("all done :)")
                 break

@@ -13,36 +13,35 @@ class Simulator(Observer):
         duration = self.signals.get_event_val("rand")
         
         if duration != False and curr_node != False:
-            print("")
             print("Added {} time units to action {}".format(duration, curr_node))
-            print("")
             curr_node.sorted_time += duration
             self.signals.set_event("rand", False)
             
-        for node in self.heap:
-            node.sorted_time -= subject.epsilon
+        if self.signals.get_event_val("cena") == False:
+            for node in self.heap:
+                node.sorted_time -= subject.epsilon
             
         while curr_node != False:
             heapq.heappush(self.heap, curr_node)
             print("Simulator started - {}, time is - {}".format(curr_node, subject.value))
             curr_node = self.signals.get_event_val("sa")
-        self.signals.set_event("ra", True)
         
         
         if len(self.heap) == 0:
             if self.signals.get_event_val("cd") == True:
                 print("Simulator Done")
-                print("")
                 self.signals.set_event("sd", True)
             return
         
         while self.heap[0].sorted_time <= subject.zero:
             self.finished_node = heapq.heappop(self.heap)
             self.signals.set_event("fa", self.finished_node)
+            self.signals.set_event("cfa", True)
             print("action done - {}, time is - {}".format(self.finished_node, subject.value))
-            print("") 
             if len(self.heap) == 0:
                 break
+            
+        self.signals.set_event("cena", False)
         
         
         # while self.heap[0].sorted_time <= 0:
