@@ -58,60 +58,42 @@ class Controller(Observer, Subject):
             self.stn_graph.vert_dict[id].action_ended = True
             finished_node = self.signals.get_event_val("fa")
         
-        # check for next action if ready
-        while int(self.heap[0].sorted_time) <= subject.value and self.heap[0].check_if_parents_done():
-            self.curr_node = heapq.heappop(self.heap)
-            print("Current Node - {}, time is - {}".format(self.curr_node, subject.value))
+        # check for all actions that are ready and remove from the heap
+        for node in self.GetNodes(subject):
+            self.curr_node = node
+            self.heap.remove(node)
+            # print("Current Node - {}, time is - {}".format(self.curr_node, subject.value))
+            print("")
             self.SetNodeRunTime(subject.epsilon)
             self.signals.set_event("sa", self.curr_node)
             self.notify()
-            if len(self.heap) == 0:
-                break
-                
+        
+        # add time penalty to unfinished nodes
         for node in self.heap:
             if int(node.sorted_time) <= subject.value and not node.check_if_parents_done():
                 node.sorted_time += subject.epsilon
         
         heapq.heapify(self.heap)
             
-        # tmp_node = self.signals.get_event_val("fa")
-        # while tmp_node != False:
-        #     self.stn_graph.vert_dict[tmp_node.id].action_ended = True
-        #     tmp_node = self.signals.get_event_val("fa")
-        #     self.signals.set_event("raf", True)
-        
-        
-        # # check if we finished all actions
-        # # check if simulator recieved an action
-        # if self.signals.get_event_val("ra") == True:
-        #     self.signals.set_event("ra", False)
-        #     if len(self.heap) == 0:
-        #         self.signals.set_event("cd", True)
-        #         print("Done - {}".format(self.clock.get_cur_time()))
-                
-        #     # check if heap[0] time has passed and all parents are done 
-        #     elif float(self.heap[0].sorted_time) <= self.clock.get_cur_time() and self.heap[0].check_if_parents_done():
-        #         self.curr_node = heapq.heappop(self.heap)
-        #         print("Current Node - {}, time is - {}".format(self.curr_node, self.clock.get_cur_time()))
-        #         self.SetNodeRunTime()
-        #         #raise signal start action "sa"
-        #         self.signals.set_event("sa", True) 
-                
-        #     # check if heap[0] time has passed and not all parents are done 
-        #     elif float(self.heap[0].sorted_time) <= self.clock.get_cur_time() and not self.heap[0].check_if_parents_done():
-        #         print("Added {} time to heap[0] {}".format(self.clock.epsilon, self.heap[0]))
-        #         self.heap[0].sorted_time += self.clock.epsilon  #TODO maybe add delay to children
-        #         self.clock.sleep_epsilon()
-        #         heapq.heapify(self.heap)
                   
     def SetNodeRunTime(self, skew):
         if self.curr_node.action == "sm":
             pl_number = int(self.curr_node.pl_num)
             self.curr_node.sorted_time = int(self.config.config_line_lst[pl_number].mission_duration) * skew
+        # elif self.curr_node.id == "sctto0":
+        #     self.curr_node.sorted_time = 50 * skew
         elif self.curr_node.action[0] == "e":
             self.curr_node.sorted_time = action_ending * skew
         else:
             self.curr_node.sorted_time = action_duration * skew
+    
+    # find all ready nodes to be sent to the simulator        
+    def GetNodes(self, subject):
+        nodes = []
+        for i in range(len(self.heap)):
+            if int(self.heap[i].sorted_time) <= subject.value and self.heap[i].check_if_parents_done():
+                nodes.append(self.heap[i])
+        return nodes
         
 if __name__ == "__main__":    
     pass

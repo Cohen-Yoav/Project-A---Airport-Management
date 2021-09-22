@@ -17,10 +17,9 @@ class Interrupt(Observer):
         if self.action_count == 0:
             action_duration = subject.curr_node.sorted_time
             self.duration = random.uniform(action_duration / 2, action_duration)
-            # print("--------------------------- duration is {}".format(self.duration))
+            # print("------------interrupt duration is {}".format(self.duration))
             self.signals.set_event("rand", self.duration)
             self.shuffle()
             
     def shuffle(self):
-        self.action_count = 0#random.randrange(0,1)
-        # self.duration = random.randrange(4, 9) * self.clock.epsilon
+        self.action_count = 0#random.randrange(1,4)

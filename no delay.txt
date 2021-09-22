@@ -1,91 +1,68 @@
 Current Node - sctto 0, time is - 0
-Current Node - sm 1, time is - 0
-Current Node - sm 2, time is - 0
+Current Node - sm 1, time is - 0        
+Current Node - sm 2, time is - 0        
 Simulator started - sctto 0, time is - 0
-Simulator started - sm 1, time is - 0
-Simulator started - sm 2, time is - 0
+Simulator started - sm 1, time is - 0   
+Simulator started - sm 2, time is - 0   
 action done - sctto 0, time is - 10
-
 action done - sm 1, time is - 10
-
 Current Node - em 1, time is - 10
 Current Node - ectto 0, time is - 10
 Simulator started - em 1, time is - 10
 Simulator started - ectto 0, time is - 10
 action done - em 1, time is - 10
-
 action done - ectto 0, time is - 10
-
 Current Node - sl 1, time is - 10
 Simulator started - sl 1, time is - 10
-action done - sm 2, time is - 18
-
-action done - sl 1, time is - 19
-
+action done - sm 2, time is - 20
+action done - sl 1, time is - 20
 Current Node - el 1, time is - 20
 Simulator started - el 1, time is - 20
 action done - el 1, time is - 20
-
 Current Node - st 1, time is - 20
 Simulator started - st 1, time is - 20
 action done - st 1, time is - 30
-
 Current Node - em 2, time is - 30
 Current Node - et 1, time is - 30
 Simulator started - em 2, time is - 30
 Simulator started - et 1, time is - 30
 action done - em 2, time is - 30
-
 action done - et 1, time is - 30
-
 Current Node - sl 2, time is - 30
 Simulator started - sl 2, time is - 30
 action done - sl 2, time is - 40
-
 Current Node - el 2, time is - 40
 Simulator started - el 2, time is - 40
 action done - el 2, time is - 40
-
 Current Node - sto 0, time is - 40
 Current Node - st 2, time is - 40
 Simulator started - sto 0, time is - 40
 Simulator started - st 2, time is - 40
 action done - sto 0, time is - 50
-
 action done - st 2, time is - 50
-
 Current Node - et 2, time is - 50
 Current Node - eto 0, time is - 50
 Simulator started - et 2, time is - 50
 Simulator started - eto 0, time is - 50
 action done - et 2, time is - 50
-
 action done - eto 0, time is - 50
-
 Current Node - sm 0, time is - 50
 Simulator started - sm 0, time is - 50
 action done - sm 0, time is - 90
-
 Current Node - em 0, time is - 90
 Simulator started - em 0, time is - 90
 action done - em 0, time is - 90
-
 Current Node - sl 0, time is - 90
 Simulator started - sl 0, time is - 90
 action done - sl 0, time is - 100
-
 Current Node - el 0, time is - 100
 Simulator started - el 0, time is - 100
 action done - el 0, time is - 100
-
 Current Node - st 0, time is - 100
 Simulator started - st 0, time is - 100
 action done - st 0, time is - 110
-
 Current Node - et 0, time is - 110
 Simulator started - et 0, time is - 110
 action done - et 0, time is - 110
-
 Simulator Done
-
 all done :)
