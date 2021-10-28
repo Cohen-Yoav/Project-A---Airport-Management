@@ -85,5 +85,10 @@ class events(metaclass=SingletonMeta):
         """
         pass
     
+    def Clear(self):
+        self.events = [False for i in range(8)]
+        self.events[self.EventToIntger("sa")] = []
+        self.events[self.EventToIntger("fa")] = []
+        
 if __name__ == "__main__":
     pass

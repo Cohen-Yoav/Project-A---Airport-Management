@@ -43,45 +43,9 @@ class Simulator(Observer):
             
         self.signals.set_event("cena", False)
         
-        
-        # while self.heap[0].sorted_time <= 0:
-        #     self.finished_node = heapq.heappop(self.heap)
-        #     self.signals.set_event("fa", self.finished_node)
-        #     print("action done - {}, time is - {}".format(self.finished_node, subject.value))
-        #     print("")
-        #     if len(self.heap) == 0:
-        #         break
-        
-        
-        # print("sim")
-        # # update all actions - V
-        # # insert new action - V
-        # # pop finished action and raise signal - V
-        # # call notify - V
-        
-        # if self.signals.get_event_val("sa") == 1:
-        #     heapq.heappush(self.heap, subject.curr_node)
-        #     self.signals.set_event("sa", False)
-        #     self.signals.set_event("ra", True)
-            
-            
-        # for node in self.heap:
-        #     node.sorted_time -= self.clock.epsilon
-        # # self.signals.set_event("sta", True)
-        # self.clock.sleep_epsilon()
-        
-        # if len(self.heap) == 0:
-        #     if self.signals.get_event_val("cd") == True:
-        #         print("Simulator Done")
-        #         self.signals.set_event("sd", True)
-        #         self.notify()
-        
-        # elif self.heap[0].sorted_time <= 0 and self.signals.get_event_val("raf") == True:
-        #     self.finished_node = heapq.heappop(self.heap)
-        #     self.signals.set_event("fa", self.finished_node.id)
-        #     self.signals.set_event("raf", False)
-        
-        # self.notify()
+    def Clear(self):
+        self.heap.clear()
+        self.finished_node = None
             
 if __name__ == "__main__":    
     pass     

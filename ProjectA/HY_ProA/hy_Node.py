@@ -55,11 +55,11 @@ class hy_Node:
 
 # represent the data structure of an STN as a graph   
 class Graph:
-    def __init__(self):
+    def __init__(self, log_output):
         self.vert_dict = {}
         self.num_vert = 0
        
-        log = open('log_output.txt', 'r')
+        log = open(log_output, 'r')
         
         # read the stn table line by line and create a new node with the corrospandin data
         for line in log:
@@ -77,7 +77,7 @@ class Graph:
            
         log.close()   
     
-        log = open('log_output.txt', 'r') # made in china (config)
+        log = open(log_output, 'r') # made in china (config)
         
         # convert the parent list to a dict and insert it to the relavent node
         for line in log:
@@ -99,7 +99,7 @@ class Graph:
            
         log.close()
         
-        log = open('log_output.txt', 'r')
+        log = open(log_output, 'r')
         
         # convert the child list to a dict and insert it to the relavent node
         for line in log:
@@ -130,16 +130,16 @@ class Graph:
 
 if __name__ == "__main__":    
     pass     
-    g = Graph()
+    # g = Graph()
 
-    for v in g:
-        print("node {} -".format(v.get_id()))
-        print("parents: ", end ="")
-        for w in v.get_parents():
-            print ("{}, ".format(w.get_id()), end ="")
-        print("")
-        print("childs: ", end ="")
-        for w in v.get_childs():
-            print ("{}, ".format(w.get_id()), end ="")
-        print("")
-        print("")
+    # for v in g:
+    #     print("node {} -".format(v.get_id()))
+    #     print("parents: ", end ="")
+    #     for w in v.get_parents():
+    #         print ("{}, ".format(w.get_id()), end ="")
+    #     print("")
+    #     print("childs: ", end ="")
+    #     for w in v.get_childs():
+    #         print ("{}, ".format(w.get_id()), end ="")
+    #     print("")
+    #     print("")

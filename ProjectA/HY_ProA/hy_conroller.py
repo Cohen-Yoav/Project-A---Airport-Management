@@ -11,12 +11,12 @@ action_ending: float = 0.001
 
 class Controller(Observer, Subject):
     
-    def __init__(self):
+    def __init__(self, config, log_output):
         
         # check with graph if the action parents are done - TODO Hַ&Y
         # in this point we finished the current action and we need to update the graph    
-        self.stn_graph = Graph()
-        self.config = config_file('ProjectA/BT_ProA/configs/config0.txt', 'r')
+        self.stn_graph = Graph(log_output)
+        self.config = config
 
         self.heap = list(self.stn_graph.vert_dict.values())
         heapq.heapify(self.heap)

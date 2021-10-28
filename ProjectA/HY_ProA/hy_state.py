@@ -1,5 +1,6 @@
 from hy_observer import Observer
 from hy_config import config_file
+import os
 
 """
 A State describe the current conditions of all the planes and lanes in the problem.
@@ -13,13 +14,13 @@ class MyState(Observer):
         @modifies 
         @effects Creates a new State with self.fuel_delta
     """
-    def __init__(self, fuel_delta):
+    def __init__(self, fuel_delta, config):
         
-        self.config = config_file('ProjectA/BT_ProA/configs/config0.txt', 'r')
+        self.config = config
         self.num_of_planes = int(self.config.num_of_planes)
         self.num_of_lanes = int(self.config.num_of_lanes)
-        self.planes_vector = [0 for i in range(self.num_of_planes)]
-        self.lanes_vector = [-1 for i in range(self.num_of_lanes)]
+        self.planes_vector = [0 for i in range(self.num_of_planes)] # holds the current state of each plane
+        self.lanes_vector = [-1 for i in range(self.num_of_lanes)] # hold the num of plane that use the lane
         self.airspace = False
         self.fuel_delta = fuel_delta
         self.current_taken_lanes = 0
@@ -28,7 +29,7 @@ class MyState(Observer):
         
         print(f'num of planes:', self.num_of_planes)
         # print(f'Plane List:', self.planes_vector[:])
-        action_list = [self.IntgerToAction(element) for element in self.planes_vector ]
+        action_list = [self.IntgerToAction(element) for element in self.planes_vector]
         print(f'Plane List:', action_list[:])
         
         print(f'num of lanes:', self.num_of_lanes)
@@ -36,7 +37,8 @@ class MyState(Observer):
         print(f'AirSpace is:',self.airspace)
     
     def UpdateState(self, PlaneIndex, action):
-                
+        
+        # in case we start take off or start landing we need a free lane         
         if action == "sctto" or action == "sl":
             for i in range(self.num_of_lanes):
                 if self.lanes_vector[i] == -1:
@@ -44,17 +46,20 @@ class MyState(Observer):
                     self.current_taken_lanes += 1
                     break;
                     #curr_plane_taken counter!!!
-                    
+        
+        # in case we finished take off or taxi we need to clear a lane            
         if action == "eto" or action == "et":
             for i in range(self.num_of_lanes):
                 if self.lanes_vector[i] == PlaneIndex:
                     self.lanes_vector[i] = -1
                     self.current_taken_lanes -= 1
                     break;
-                    
+        
+        # in case we start take off or landing we need to lock the airspace            
         if action == "sto" or action=="sl":
             self.airspace = True
         
+        # in case we finished take off or landing we need to unlock the airspace
         if action == "sm" or action=="st":
             self.airspace = False
                     
@@ -99,7 +104,11 @@ class MyState(Observer):
         return switcher.get(argument, -1)
     
     def StateToConfig(self):
-        # how do we take the time in to account?
+        here = os.path.dirname(os.path.realpath(__file__))
+        subdir = "configs"
+        config_path = here + "\\" + subdir
+        configs = os.listdir(config_path)
+        configs_num = [int(i[6:-4]) for i in configs]
         
         new_config = open('ProjectA/BT_ProA/configs/config1.txt','w')
         new_config.write('number_of_planes = ' + str(self.num_of_planes) + '\n')
@@ -137,5 +146,5 @@ class MyState(Observer):
         
 if __name__ == "__main__":
     pass
-    # ms = MyState(5)
-    # ms.print_state()
+    ms = MyState(5)
+    ms.print_state()

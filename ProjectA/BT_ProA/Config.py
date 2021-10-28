@@ -10,7 +10,7 @@ from BT_ProA.Gcn import trainer, Net
 from BT_ProA.Plane import Plane
 
 
-def fromConfigFile(gcn_mode):
+def fromConfigFile(gcn_mode, config_version):
     ## this section load and sort the config files
     dataset = []
     exec_order = []
@@ -30,8 +30,6 @@ def fromConfigFile(gcn_mode):
     
     for i in [i[0] for i in sorted_configs]:
         
-        # if i != 'config24.txt':  # debug
-        #  continue
         exec_order.clear()
         filename = str(i)
         filepath = os.path.join(here, subdir, filename)
@@ -86,7 +84,10 @@ def fromConfigFile(gcn_mode):
             exec_order.sort(key=lambda x: x[1])
             predicted_exec_order.sort(key=lambda x: x[1])
             is_print_full_solution = True
-            log_output = open('log_output.txt', mode='w')
+            log_name = 'log_output' + '_' + i[6:-4] + '.txt'
+            log_dir = 'logs'
+            log_path = os.path.join(here, log_dir, log_name)
+            log_output = open(log_path, mode='w')
             # you can print to log_output by replace "sys.stdout" with "log_output"
             exec_(num_of_planes, num_of_lanes, planes, state, chosen_lanes, 0, i, log_output, is_print_full_solution,
                   max_run_time, exec_order, predicted_exec_order)  # if you want to run with the true exec order,

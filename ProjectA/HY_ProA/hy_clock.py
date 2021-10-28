@@ -49,7 +49,7 @@ class Clock(metaclass=SingletonMeta):
         # value - how many time units has passed - int
         self.value = -1
         # epsilon - this is the time unit - float
-        self.epsilon = 0.001
+        self.epsilon = 0.0001
         # observers - list of followeres
         self.observers: List[Observer] = []
         # Done - bollean to say if conroller and simulator are done
@@ -63,6 +63,7 @@ class Clock(metaclass=SingletonMeta):
         time.sleep(self.epsilon)
     
     def run_clock(self):
+
         while True:
             # if no action is done in this cycle 
             if self.signals.get_event_val("cfa") == False:
@@ -100,5 +101,10 @@ class Clock(metaclass=SingletonMeta):
     def update(self, subject):
         self.Done = True
 
+    def Clear(self):
+        self.value = -1
+        self.observers.clear()
+        self.Done = False
+        
 if __name__ == "__main__":
     pass
