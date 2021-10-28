@@ -9,7 +9,7 @@ t_el_2    : 20.001     :        parents:  ['t_sl_2']                       :    
 t_st_2    : 20.002     :        parents:  ['t_el_2']                       :        childs:  ['t_et_2']            
 t_sl_1    : 20.002     :        parents:  ['t_em_1', 't_el_2']             :        childs:  ['t_el_1']            
 t_et_2    : 30.002     :        parents:  ['t_st_2']                       :        childs:  ['t_sl_0']            
-t_el_1    : 30.002     :        parents:  ['t_sl_1']                       :        childs:  ['t_st_1', 't_sl_0']  
+t_el_1    : 30.002     :        parents:  ['t_sl_1']                       :        childs:  ['t_sl_0', 't_st_1']  
 t_st_1    : 30.003     :        parents:  ['t_el_1']                       :        childs:  ['t_et_1']            
 t_sl_0    : 30.003     :        parents:  ['t_em_0', 't_et_2', 't_el_1']   :        childs:  ['t_el_0']            
 t_et_1    : 40.003     :        parents:  ['t_st_1']                       :        childs:  []                    

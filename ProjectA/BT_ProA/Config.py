@@ -23,9 +23,14 @@ def fromConfigFile(gcn_mode, config_version):
     
     configs = os.listdir(config_path)
     configs_num = [int(i[6:-4]) for i in configs]
-    for i in range(len(configs)):
-        sorted_configs.append([configs[i], configs_num[i]])
-    sorted_configs = sorted(sorted_configs, key=lambda x: x[1])
+    
+    if config_version != -1:
+        index = configs_num.index(config_version)
+        sorted_configs.append([configs[index], configs_num[index]])
+    else:    
+        for i in range(len(configs)):
+            sorted_configs.append([configs[i], configs_num[i]])
+        sorted_configs = sorted(sorted_configs, key=lambda x: x[1])
     ## end section
     
     for i in [i[0] for i in sorted_configs]:

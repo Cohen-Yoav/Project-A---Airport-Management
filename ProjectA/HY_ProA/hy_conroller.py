@@ -11,10 +11,8 @@ action_ending: float = 0.001
 
 class Controller(Observer, Subject):
     
-    def __init__(self, config, log_output):
-        
-        # check with graph if the action parents are done - TODO Hַ&Y
-        # in this point we finished the current action and we need to update the graph    
+    def __init__(self, config, log_output, state):
+           
         self.stn_graph = Graph(log_output)
         self.config = config
 
@@ -25,6 +23,7 @@ class Controller(Observer, Subject):
         self.signals = events()
         
         self.observers: List[Observer] = []
+        self.state = state
         
     def attach(self, observer):
         """
@@ -36,7 +35,7 @@ class Controller(Observer, Subject):
         """
         Detach an observer from the subject.
         """
-        pass
+        self.observers.remove(observer)
 
     def notify(self):
         """
@@ -65,6 +64,13 @@ class Controller(Observer, Subject):
             # print("Current Node - {}, time is - {}".format(self.curr_node, subject.value))
             print("")
             self.SetNodeRunTime(subject.epsilon)
+            
+            # add a call to legal function
+            # if illeagal then we need to replan, else continue
+            if self.state.is_leagal(self.curr_node) == False:
+                pass
+                # add re-planing option here - state_to_config is called here?
+                        
             self.signals.set_event("sa", self.curr_node)
             self.notify()
         

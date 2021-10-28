@@ -39,10 +39,10 @@ class events(metaclass=SingletonMeta):
             1: "cena"       ,     # Clock event no action
             2: "cfa"        ,     # Simulator Clock finished action
             3: "fa"         ,     # Simulator finished action
-            4: "raf"        ,     # Controller recieved action finished from simulator
-            5: "cd"         ,     # Controller done
-            6: "sd"         ,     # Simulator done
-            7: "rand"       ,     # Random noise
+            4: "cd"         ,     # Controller done
+            5: "sd"         ,     # Simulator done
+            6: "rand"       ,     # Random noise
+            # 7: 
         }
         return switcher.get(argument, "nothing")
     
@@ -53,10 +53,10 @@ class events(metaclass=SingletonMeta):
             "cena"  : 1,      # Clock event no action
             "cfa"   : 2,      # Simulator Clock finished action
             "fa"    : 3,      # Simulator finished action
-            "raf"   : 4,      # Controller recieved action finished from simulator
-            "cd"    : 5,      # Controller done
-            "sd"    : 6,      # Simulator done
-            "rand"  : 7,      # Random noise
+            "cd"    : 4,      # Controller done
+            "sd"    : 5,      # Simulator done
+            "rand"  : 6,      # Random noise
+                    # : 7,      # 
         }
         return switcher.get(argument, -1)
     

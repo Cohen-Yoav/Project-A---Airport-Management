@@ -1,6 +1,8 @@
 from hy_observer import Observer
 from hy_config import config_file
 import os
+from hy_clock import Clock
+from hy_events import events
 
 """
 A State describe the current conditions of all the planes and lanes in the problem.
@@ -24,6 +26,8 @@ class MyState(Observer):
         self.airspace = False
         self.fuel_delta = fuel_delta
         self.current_taken_lanes = 0
+        self.clock = Clock()
+        self.signals = events()
         
     def print_state(self):
         
@@ -103,14 +107,13 @@ class MyState(Observer):
         }
         return switcher.get(argument, -1)
     
-    def StateToConfig(self):
-        here = os.path.dirname(os.path.realpath(__file__))
-        subdir = "configs"
-        config_path = here + "\\" + subdir
-        configs = os.listdir(config_path)
-        configs_num = [int(i[6:-4]) for i in configs]
-        
-        new_config = open('ProjectA/BT_ProA/configs/config1.txt','w')
+    def StateToConfig(self):  
+        path = 'ProjectA/BT_ProA/configs/'
+        self.config.config_version += 1
+        config_name = "config" + self.config.config_num + "." + self.config.config_version + ".txt"
+        filepath = os.path.join(path, config_name)
+
+        new_config = open(filepath,'w')
         new_config.write('number_of_planes = ' + str(self.num_of_planes) + '\n')
         new_config.write('number_of_lanes = ' + str(self.num_of_lanes) + '\n')
         new_config.write('max_run_time = ' + str(self.config.max_run_time) + '\n')
@@ -131,17 +134,19 @@ class MyState(Observer):
             else:
                 status = 5
                 
-            new_config.write('plane' + str(i) + '    ' + start_day_min + '   ' + start_day_max + '   ' + 
-                             mission_duration + '   ' + max_fuel + '   ' + end_day + '   ' + str(status) + '\n')
+            new_config.write('plane' + str(i) + ' ' + start_day_min + ' ' + start_day_max + ' ' + 
+                             mission_duration + ' ' + max_fuel + ' ' + end_day + ' ' + str(status) + '\n')
         
         new_config.close()
         
     def update(self, subject):
-        # print("state - {}".format(subject.value))
-        # self.UpdateState(subject.curr_node.pl_num, subject.curr_node.action)
+        self.UpdateState(subject.curr_node.pl_num, subject.curr_node.action)
         # self.print_state()
         # self.StateToConfig()
         # print("")
+        pass
+    
+    def isLegal(self, curr_node):
         pass
         
 if __name__ == "__main__":

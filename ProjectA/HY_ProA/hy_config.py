@@ -1,10 +1,12 @@
 
+from torch._C import StringType
+
+
 class config_line():
     def __init__(self, cfg_line):
         self.lst = cfg_line
-        # single digit id plane number - TODO H&Y fix it
-        self.id = cfg_line[0][-1]
-        self.start_day_min = cfg_line[1]
+        self.id = cfg_line[0][5:]
+        self.start_day_min = cfg_line[1] if len(cfg_line[1]) == 2 else cfg_line[1] + ' '
         self.start_day_max = cfg_line[2]
         self.mission_duration = cfg_line[3]
         self.max_fuel = cfg_line[4]
@@ -13,12 +15,14 @@ class config_line():
         
         
 class config_file():
-    def __init__(self, path, permission):
+    def __init__(self, path, index: StringType, permission):
         self.file = open(path, permission)
         self.num_of_planes = 0
         self.num_of_lanes = 0
         self.max_run_time = 0
         self.config_line_lst = []
+        self.config_num = index.split('.')[0]
+        self.config_version = int(index.split('.')[1]) if "." in index else 0
         
         if permission == 'r':
             self.set_config_file(path, permission)

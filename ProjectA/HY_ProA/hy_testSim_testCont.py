@@ -12,19 +12,25 @@ This is the main test that activate the Controller, Simulator and State modules
 """
 
 if __name__ == "__main__":
+    
+    # create the Clock, events and simulator modules
     signals = events()
     clock = Clock(signals)
     sim = Simulator()
+    # subscribe the clock module to the events - clock is listening on events
     signals.attach(clock)
     
+    # create a list of all config and log files
     sorted_files = []
     config_path = "ProjectA/BT_ProA/configs/"
     log_path = "ProjectA/BT_ProA/logs/"
     
+    # import all config and log files created by B&T module
     configs = os.listdir(config_path)
     logs = os.listdir(log_path)
     idx_num = [int(i[6:-4]) for i in configs]
     
+    # go over all config and log files - if log file is empty skip (B&T didn't find solution)
     for i in range(len(configs)):
         config_name = str(configs[i])
         log_name = str(logs[i])
@@ -33,17 +39,18 @@ if __name__ == "__main__":
         if os.stat(log_file_path).st_size != 0:
             sorted_files.append([configs[i], config_file_path, logs[i], log_file_path, idx_num[i]])
     sorted_files = sorted(sorted_files, key=lambda x: x[4])
-        
-    for (cfg, log) in zip([i[1] for i in sorted_files], [i[3] for i in sorted_files]):
-        print(cfg, end="\n\n")
-        config = config_file(cfg, 'r')
-        cont = Controller(config, log)
+    
+    # for each config and log file that has a valid plan run our project
+    for (cfg, log, index) in zip([i[1] for i in sorted_files], [i[3] for i in sorted_files], [i[4] for i in sorted_files]):
+        print(cfg, end="-------------------\n")
+        config = config_file(cfg, str(index), 'r')
         state = MyState(10, config)
+        cont = Controller(config, log, state)
         inter = Interrupt()
 
         clock.attach(cont)
         clock.attach(sim)
-        clock.attach(state)
+        sim.attach(state)
         cont.attach(inter)
 
         clock.run_clock()
