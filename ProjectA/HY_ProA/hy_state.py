@@ -48,8 +48,7 @@ class MyState(Observer):
                 if self.lanes_vector[i] == -1:
                     self.lanes_vector[i] = PlaneIndex
                     self.current_taken_lanes += 1
-                    break;
-                    #curr_plane_taken counter!!!
+                    break
         
         # in case we finished take off or taxi we need to clear a lane            
         if action == "eto" or action == "et":
@@ -57,19 +56,17 @@ class MyState(Observer):
                 if self.lanes_vector[i] == PlaneIndex:
                     self.lanes_vector[i] = -1
                     self.current_taken_lanes -= 1
-                    break;
+                    break
         
         # in case we start take off or landing we need to lock the airspace            
-        if action == "sto" or action=="sl":
+        if action == "sto" or action =="sl":
             self.airspace = True
         
         # in case we finished take off or landing we need to unlock the airspace
-        if action == "sm" or action=="st":
+        if action == "sm" or action == "st":
             self.airspace = False
                     
         self.planes_vector[PlaneIndex] = self.ActionToIntger(action)
-        
-        return self
         
     @staticmethod
     def IntgerToAction(argument):
@@ -140,13 +137,17 @@ class MyState(Observer):
         new_config.close()
         
     def update(self, subject):
-        self.UpdateState(subject.curr_node.pl_num, subject.curr_node.action)
+        if subject.curr_node.action == "et" and subject.action_started == False:
+            self.UpdateState(int(subject.curr_node.pl_num), "done")
+        else:
+            self.UpdateState(int(subject.curr_node.pl_num), subject.curr_node.action)
+        
         # self.print_state()
         # self.StateToConfig()
         # print("")
         pass
     
-    def isLegal(self, curr_node):
+    def isLegal(self, nodes):
         pass
         
 if __name__ == "__main__":

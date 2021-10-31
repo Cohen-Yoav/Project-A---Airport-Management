@@ -49,7 +49,7 @@ class Clock(metaclass=SingletonMeta):
         # value - how many time units has passed - int
         self.value = -1
         # epsilon - this is the time unit - float
-        self.epsilon = 0.0001
+        self.epsilon = 0.00001
         # observers - list of followeres
         self.observers: List[Observer] = []
         # Done - bollean to say if conroller and simulator are done

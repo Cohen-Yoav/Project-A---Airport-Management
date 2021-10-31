@@ -42,6 +42,8 @@ if __name__ == "__main__":
     
     # for each config and log file that has a valid plan run our project
     for (cfg, log, index) in zip([i[1] for i in sorted_files], [i[3] for i in sorted_files], [i[4] for i in sorted_files]):
+        if index != 0:
+            continue
         print(cfg, end="-------------------\n")
         config = config_file(cfg, str(index), 'r')
         state = MyState(10, config)

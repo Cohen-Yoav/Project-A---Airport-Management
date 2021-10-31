@@ -7,8 +7,9 @@ from typing import List
 class Simulator(Observer, Subject):
     def __init__(self):
         self.heap = []
-        self.finished_node = None
+        # self.finished_node = None
         self.curr_node = None
+        self.action_started = False # False action finished, True action started
         self.signals = events()
         self.observers: List[Observer] = []
                 
@@ -33,7 +34,8 @@ class Simulator(Observer, Subject):
         while self.curr_node != False:
             heapq.heappush(self.heap, self.curr_node)
             print("Simulator started - {}, time is - {}".format(self.curr_node, subject.value))
-            self.notify(self) # update state
+            self.action_started = True
+            self.notify() # update state
             self.curr_node = self.signals.get_event_val("sa")
         
         
@@ -44,11 +46,12 @@ class Simulator(Observer, Subject):
             return
         
         while self.heap[0].sorted_time <= subject.zero:
-            self.finished_node = heapq.heappop(self.heap)
-            self.notify(self) # update state
-            self.signals.set_event("fa", self.finished_node)
+            self.curr_node = heapq.heappop(self.heap)
+            self.action_started = False
+            self.notify() # update state
+            self.signals.set_event("fa", self.curr_node)
             self.signals.set_event("cfa", True)
-            print("action done - {}, time is - {}".format(self.finished_node, subject.value))
+            print("action done - {}, time is - {}".format(self.curr_node, subject.value))
             if len(self.heap) == 0:
                 break
             
@@ -56,7 +59,7 @@ class Simulator(Observer, Subject):
         
     def Clear(self):
         self.heap.clear()
-        self.finished_node = None
+        self.curr_node = None
         
 
     def attach(self, observer):

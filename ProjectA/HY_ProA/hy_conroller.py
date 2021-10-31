@@ -57,19 +57,23 @@ class Controller(Observer, Subject):
             self.stn_graph.vert_dict[id].action_ended = True
             finished_node = self.signals.get_event_val("fa")
         
-        # check for all actions that are ready and remove from the heap
-        for node in self.GetNodes(subject):
+       
+        nodes = self.GetNodes(subject)
+        # if self.state.isLegal(nodes) == False:
+        #     pass
+        # add a call to legal function
+        # if illeagal then we need to replan, else continue
+            # add re-planing option here - state_to_config is called here?
+            
+         # check for all actions that are ready and remove from the heap
+        for node in nodes:
             self.curr_node = node
             self.heap.remove(node)
             # print("Current Node - {}, time is - {}".format(self.curr_node, subject.value))
             print("")
             self.SetNodeRunTime(subject.epsilon)
             
-            # add a call to legal function
-            # if illeagal then we need to replan, else continue
-            if self.state.is_leagal(self.curr_node) == False:
-                pass
-                # add re-planing option here - state_to_config is called here?
+
                         
             self.signals.set_event("sa", self.curr_node)
             self.notify()
