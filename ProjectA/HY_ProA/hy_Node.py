@@ -1,5 +1,3 @@
-import time
-
 def get_plane_num(line):
     pl_num =  line.split(':')[0:1]
     pl_num = pl_num[0].split('_')[2:3][0]
@@ -14,6 +12,7 @@ class hy_Node:
         self.id = action + pl_num
         self.time = time
         self.sorted_time :float = float(time)
+        self.air_time : int = 0
         self.action_ended = False
         self.parents = {}
         self.childs = {}

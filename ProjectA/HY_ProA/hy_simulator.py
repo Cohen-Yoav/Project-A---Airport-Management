@@ -29,6 +29,10 @@ class Simulator(Observer, Subject):
         if self.signals.get_event_val("cena") == False:
             for node in self.heap:
                 node.sorted_time -= subject.epsilon
+                # add one time unit to the air time of the plane
+                if node.action == "sm":
+                    node.air_time += 1
+                    
         
         # insert new nodes to the heap    
         while self.curr_node != False:

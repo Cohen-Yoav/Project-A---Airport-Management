@@ -46,7 +46,7 @@ if __name__ == "__main__":
             continue
         print(cfg, end="-------------------\n")
         config = config_file(cfg, str(index), 'r')
-        state = MyState(10, config)
+        state = MyState(0.001, config)
         cont = Controller(config, log, state)
         inter = Interrupt()
 

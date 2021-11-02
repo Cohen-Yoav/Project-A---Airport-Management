@@ -2,7 +2,6 @@ from hy_observer import Observer
 from typing import List
 from hy_subject import Subject
 from hy_Node import Graph
-from hy_config import config_file
 from hy_events import events
 import heapq
 
