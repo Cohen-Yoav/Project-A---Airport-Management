@@ -5,7 +5,7 @@ from typing import List
 class events(metaclass=SingletonMeta):
     events = []
     def __init__(self):
-        self.events = [False for i in range(8)]
+        self.events = [False for i in range(9)]
         self.events[self.EventToIntger("sa")] = []
         self.events[self.EventToIntger("fa")] = []
         self.observers: List[Observer] = []
@@ -42,7 +42,8 @@ class events(metaclass=SingletonMeta):
             4: "cd"         ,     # Controller done
             5: "sd"         ,     # Simulator done
             6: "rand"       ,     # Random noise
-            # 7: 
+            7: "rp"         ,     # Replaning - False is no replaning, number mean replaning
+            8: "test"       ,     # Test done - True mean test is done, False mean regurlar test, number mean replaning
         }
         return switcher.get(argument, "nothing")
     
@@ -56,7 +57,8 @@ class events(metaclass=SingletonMeta):
             "cd"    : 4,      # Controller done
             "sd"    : 5,      # Simulator done
             "rand"  : 6,      # Random noise
-                    # : 7,      # 
+            "rp"    : 7,      # Replaning
+            "test"  : 8,      # Test done - True mean test is done, False mean regurlar test, number mean replaning
         }
         return switcher.get(argument, -1)
     
@@ -86,7 +88,7 @@ class events(metaclass=SingletonMeta):
         pass
     
     def Clear(self):
-        self.events = [False for i in range(8)]
+        self.events = [False for i in range(9)]
         self.events[self.EventToIntger("sa")] = []
         self.events[self.EventToIntger("fa")] = []
         

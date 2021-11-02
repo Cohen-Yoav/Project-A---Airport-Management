@@ -22,7 +22,7 @@ def fromConfigFile(gcn_mode, config_version):
 
     
     configs = os.listdir(config_path)
-    configs_num = [int(i[6:-4]) for i in configs]
+    configs_num = [float(i[6:-4]) for i in configs]
     
     if config_version != -1:
         index = configs_num.index(config_version)

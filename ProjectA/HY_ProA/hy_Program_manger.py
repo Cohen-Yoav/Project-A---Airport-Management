@@ -6,10 +6,20 @@ from hy_state import MyState
 from hy_Interrupt import Interrupt
 from hy_config import config_file
 import os
+from BT_ProA import Main as mbt
 
 """
 This is the main test that activate the Controller, Simulator and State modules
 """
+
+def make_log_path(index):
+    here = os.path.dirname(os.path.realpath(__file__))
+    subdir = "Logs"
+    log_path = here + "\\" + subdir        
+    log_name = "log_output" + str(index) + ".txt"
+    filepath = os.path.join(log_path, log_name)
+    
+    return filepath
 
 if __name__ == "__main__":
     
@@ -42,33 +52,49 @@ if __name__ == "__main__":
     
     # for each config and log file that has a valid plan run our project
     for (cfg, log, index) in zip([i[1] for i in sorted_files], [i[3] for i in sorted_files], [i[4] for i in sorted_files]):
-        # if index != 3:
-        #     continue
+
         print(index)
         
-        # open log_file for our program
-        here = os.path.dirname(os.path.realpath(__file__))
-        subdir = "Logs"
-        log_path = here + "\\" + subdir        
-        log_name = "log_output" + str(index) + ".txt"
-        filepath = os.path.join(log_path, log_name)
+        while True:
+            
+            # check if test is done or replaning is needed
+            Test = signals.get_event_val("Test")
+            if Test == True:
+                break
+            elif Test != False: # replaning using the offline program
+                index = Test
+                mbt.main(index) # running the offline program with the new config file
+                cfg = os.path.join(config_path, "config" + str(index) + ".txt")       
+                log = os.path.join(log_path, "log_output_" + str(index) + ".txt") 
+                
+                if os.stat(log_file_path).st_size == 0: # replaning failed
+                    print("failed !")
+                    
+                # clean up at aisle 6
+                clock.Clear()
+                sim.Clear()
+                signals.Clear()     
+                        
+            
+            # open log_file for our program
+            filepath = make_log_path(str(index))
 
-        new_log = open(filepath,'w')
-        config = config_file(cfg, str(index), 'r')
-        state = MyState(0.001, config)
-        cont = Controller(config, log, state)
-        inter = Interrupt()
+            new_log = open(filepath,'w')
+            config = config_file(cfg, str(index), 'r')
+            state = MyState(0.001, config)
+            cont = Controller(config, log, state)
+            inter = Interrupt()
 
-        clock.attach(cont)
-        clock.attach(sim)
-        sim.attach(state)
-        cont.attach(inter)
-        
-        cont.SetLogFile(new_log)
-        sim.SetLogFile(new_log)
-        state.SetLogFile(new_log)
+            clock.attach(cont)
+            clock.attach(sim)
+            sim.attach(state)
+            cont.attach(inter)
 
-        clock.run_clock()
+            cont.SetLogFile(new_log)
+            sim.SetLogFile(new_log)
+            state.SetLogFile(new_log)
+
+            clock.run_clock()
         
         # clean up at aisle 6
         clock.Clear()

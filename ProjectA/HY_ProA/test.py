@@ -13,4 +13,4 @@ Offline planner is a module design by Bar and Tom
 """
 
 if __name__ == "__main__":  
-    mbt.main()
+    mbt.main(0.1)

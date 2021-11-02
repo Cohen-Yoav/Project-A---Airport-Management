@@ -58,13 +58,14 @@ class Controller(Observer, Subject):
             self.stn_graph.vert_dict[id].action_ended = True
             finished_node = self.signals.get_event_val("fa")
         
-       
+        # get all nodes that the parents are done and thier start time < clock.val
         nodes = self.GetNodes(subject)
-        # if self.state.isLegal(nodes) == False:
-        #     pass
-        # add a call to legal function
-        # if illeagal then we need to replan, else continue
-            # add re-planing option here - state_to_config is called here?
+        
+        # check if the next actions are legal, replan if illegal
+        if not self.state.isLegal(nodes):
+            version = self.state.StateToConfig(self.stn_graph)
+            self.signals.set_event("rp", version)
+            return 
             
          # check for all actions that are ready and remove from the heap
         for node in nodes:

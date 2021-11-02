@@ -172,6 +172,9 @@ class MyState(Observer):
         
         new_config.close()
         
+        # return the new version
+        return self.config.config_num + "." + self.config.config_version
+        
     def update(self, subject):
         if subject.curr_node.action == "et" and subject.action_started == False:
             self.UpdateState(int(subject.curr_node.pl_num), "done")
@@ -184,7 +187,7 @@ class MyState(Observer):
         pass
     
     def isLegal(self, nodes):
-        pass
+        return True
     
     def SetLogFile(self, log):
         self.log_file = log

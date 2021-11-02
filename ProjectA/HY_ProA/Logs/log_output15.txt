@@ -62,4 +62,3 @@ Simulator: started - st 2, time is - 80
 Simulator: action done - st 2, time is - 90
 Simulator: started - et 2, time is - 90
 Simulator: action done - et 2, time is - 90
-Simulator Done

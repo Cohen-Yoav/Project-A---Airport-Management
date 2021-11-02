@@ -38,4 +38,3 @@ Simulator: started - st 1, time is - 150
 Simulator: action done - st 1, time is - 160
 Simulator: started - et 1, time is - 160
 Simulator: action done - et 1, time is - 160
-Simulator Done
