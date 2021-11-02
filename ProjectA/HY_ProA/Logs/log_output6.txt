@@ -1,0 +1,61 @@
+Simulator: started - sm 4, time is - 0
+Simulator: started - sm 0, time is - 0
+Simulator: started - sm 1, time is - 0
+Simulator: started - sm 3, time is - 0
+Simulator: started - sm 2, time is - 0
+Simulator: action done - sm 1, time is - 50
+Simulator: action done - sm 2, time is - 50
+Simulator: started - em 2, time is - 50
+Simulator: started - em 1, time is - 50
+Simulator: action done - em 2, time is - 50
+Simulator: action done - em 1, time is - 50
+Simulator: started - sl 1, time is - 50
+Simulator: action done - sl 1, time is - 60
+Simulator: started - el 1, time is - 60
+Simulator: action done - el 1, time is - 60
+Simulator: started - sl 2, time is - 60
+Simulator: started - st 1, time is - 60
+Simulator: action done - sl 2, time is - 70
+Simulator: action done - st 1, time is - 70
+Simulator: started - el 2, time is - 70
+Simulator: started - et 1, time is - 70
+Simulator: action done - el 2, time is - 70
+Simulator: action done - et 1, time is - 70
+Simulator: started - st 2, time is - 70
+Simulator: action done - st 2, time is - 80
+Simulator: started - et 2, time is - 80
+Simulator: action done - et 2, time is - 80
+Simulator: action done - sm 4, time is - 100
+Simulator: action done - sm 0, time is - 100
+Simulator: action done - sm 3, time is - 100
+Simulator: started - em 0, time is - 100
+Simulator: started - em 3, time is - 100
+Simulator: started - em 4, time is - 100
+Simulator: action done - em 0, time is - 100
+Simulator: action done - em 3, time is - 100
+Simulator: action done - em 4, time is - 100
+Simulator: started - sl 4, time is - 100
+Simulator: action done - sl 4, time is - 110
+Simulator: started - el 4, time is - 110
+Simulator: action done - el 4, time is - 110
+Simulator: started - sl 3, time is - 110
+Simulator: started - st 4, time is - 110
+Simulator: action done - sl 3, time is - 120
+Simulator: action done - st 4, time is - 120
+Simulator: started - el 3, time is - 120
+Simulator: started - et 4, time is - 120
+Simulator: action done - el 3, time is - 120
+Simulator: action done - et 4, time is - 120
+Simulator: started - sl 0, time is - 120
+Simulator: started - st 3, time is - 120
+Simulator: action done - sl 0, time is - 130
+Simulator: action done - st 3, time is - 130
+Simulator: started - el 0, time is - 130
+Simulator: started - et 3, time is - 130
+Simulator: action done - el 0, time is - 130
+Simulator: action done - et 3, time is - 130
+Simulator: started - st 0, time is - 130
+Simulator: action done - st 0, time is - 140
+Simulator: started - et 0, time is - 140
+Simulator: action done - et 0, time is - 140
+Simulator Done

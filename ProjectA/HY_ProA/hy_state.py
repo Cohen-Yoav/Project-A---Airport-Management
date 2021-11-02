@@ -28,6 +28,7 @@ class MyState(Observer):
         self.current_taken_lanes = 0
         self.clock = Clock()
         self.signals = events()
+        self.log_file = None
         
     def print_state(self):
         
@@ -65,7 +66,7 @@ class MyState(Observer):
         # in case we finished take off or landing we need to unlock the airspace
         if action == "sm" or action == "st":
             self.airspace = False
-                    
+        
         self.planes_vector[PlaneIndex] = self.ActionToIntger(action)
         
         
@@ -185,6 +186,8 @@ class MyState(Observer):
     def isLegal(self, nodes):
         pass
     
+    def SetLogFile(self, log):
+        self.log_file = log
         
 if __name__ == "__main__":
     pass

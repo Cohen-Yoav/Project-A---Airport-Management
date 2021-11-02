@@ -12,6 +12,7 @@ class Simulator(Observer, Subject):
         self.action_started = False # False action finished, True action started
         self.signals = events()
         self.observers: List[Observer] = []
+        self.log_file = None
                 
     def update(self, subject):
         # get the current node from the begining of the list
@@ -21,7 +22,7 @@ class Simulator(Observer, Subject):
         
         # check if there is a node and an interrupt 
         if duration != False and self.curr_node != False:
-            print("Added {} time units to action {}".format(duration, self.curr_node))
+            self.log_file.write("Simulator: Added {} time units to action {}\n".format(duration, self.curr_node))
             self.curr_node.sorted_time += duration
             self.signals.set_event("rand", False)
         
@@ -37,7 +38,7 @@ class Simulator(Observer, Subject):
         # insert new nodes to the heap    
         while self.curr_node != False:
             heapq.heappush(self.heap, self.curr_node)
-            print("Simulator started - {}, time is - {}".format(self.curr_node, subject.value))
+            self.log_file.write("Simulator: started - {}, time is - {}\n".format(self.curr_node, subject.value))
             self.action_started = True
             self.notify() # update state
             self.curr_node = self.signals.get_event_val("sa")
@@ -45,7 +46,7 @@ class Simulator(Observer, Subject):
         
         if len(self.heap) == 0:
             if self.signals.get_event_val("cd") == True:
-                print("Simulator Done")
+                # self.log_file.write("Simulator Done\n")
                 self.signals.set_event("sd", True)
             return
         
@@ -55,7 +56,7 @@ class Simulator(Observer, Subject):
             self.notify() # update state
             self.signals.set_event("fa", self.curr_node)
             self.signals.set_event("cfa", True)
-            print("action done - {}, time is - {}".format(self.curr_node, subject.value))
+            self.log_file.write("Simulator: action done - {}, time is - {}\n".format(self.curr_node, subject.value))
             if len(self.heap) == 0:
                 break
             
@@ -63,6 +64,7 @@ class Simulator(Observer, Subject):
         
     def Clear(self):
         self.heap.clear()
+        self.observers.clear()
         self.curr_node = None
         
 
@@ -84,6 +86,9 @@ class Simulator(Observer, Subject):
         """
         for observer in self.observers:
             observer.update(self)
+            
+    def SetLogFile(self, log):
+        self.log_file = log
             
 if __name__ == "__main__":    
     pass     

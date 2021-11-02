@@ -42,9 +42,18 @@ if __name__ == "__main__":
     
     # for each config and log file that has a valid plan run our project
     for (cfg, log, index) in zip([i[1] for i in sorted_files], [i[3] for i in sorted_files], [i[4] for i in sorted_files]):
-        if index != 0:
-            continue
-        print(cfg, end="-------------------\n")
+        # if index != 3:
+        #     continue
+        print(index)
+        
+        # open log_file for our program
+        here = os.path.dirname(os.path.realpath(__file__))
+        subdir = "Logs"
+        log_path = here + "\\" + subdir        
+        log_name = "log_output" + str(index) + ".txt"
+        filepath = os.path.join(log_path, log_name)
+
+        new_log = open(filepath,'w')
         config = config_file(cfg, str(index), 'r')
         state = MyState(0.001, config)
         cont = Controller(config, log, state)
@@ -54,6 +63,10 @@ if __name__ == "__main__":
         clock.attach(sim)
         sim.attach(state)
         cont.attach(inter)
+        
+        cont.SetLogFile(new_log)
+        sim.SetLogFile(new_log)
+        state.SetLogFile(new_log)
 
         clock.run_clock()
         

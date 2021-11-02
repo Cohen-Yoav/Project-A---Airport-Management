@@ -75,7 +75,7 @@ class Clock(metaclass=SingletonMeta):
                 self.signals.set_event("cena", True)
                 
             if self.Done == True:
-                print("all done :)")
+                print("Clock: all done :)")
                 break
             self.notify()
         

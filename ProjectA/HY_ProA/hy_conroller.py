@@ -24,6 +24,8 @@ class Controller(Observer, Subject):
         self.observers: List[Observer] = []
         self.state = state
         
+        self.log_file = None
+        
     def attach(self, observer):
         """
         Attach an observer to the subject.
@@ -68,8 +70,7 @@ class Controller(Observer, Subject):
         for node in nodes:
             self.curr_node = node
             self.heap.remove(node)
-            # print("Current Node - {}, time is - {}".format(self.curr_node, subject.value))
-            print("")
+            # self.log_file.write("Controller: Current Node - {}, time is - {}\n".format(self.curr_node, subject.value))
             self.SetNodeRunTime(subject.epsilon)
             
 
@@ -89,8 +90,6 @@ class Controller(Observer, Subject):
         if self.curr_node.action == "sm":
             pl_number = int(self.curr_node.pl_num)
             self.curr_node.sorted_time = int(self.config.config_line_lst[pl_number].mission_duration) * skew
-        # elif self.curr_node.id == "sctto0":
-        #     self.curr_node.sorted_time = 50 * skew
         elif self.curr_node.action[0] == "e":
             self.curr_node.sorted_time = action_ending * skew
         else:
@@ -103,6 +102,9 @@ class Controller(Observer, Subject):
             if int(self.heap[i].sorted_time) <= subject.value and self.heap[i].check_if_parents_done():
                 nodes.append(self.heap[i])
         return nodes
+    
+    def SetLogFile(self, log):
+        self.log_file = log
         
 if __name__ == "__main__":    
     pass

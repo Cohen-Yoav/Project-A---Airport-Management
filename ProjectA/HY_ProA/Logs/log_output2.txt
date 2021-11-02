@@ -1,0 +1,53 @@
+Simulator: started - sm 2, time is - 0
+Simulator: started - sctto 0, time is - 0
+Simulator: started - sctto 1, time is - 0
+Simulator: action done - sm 2, time is - 0
+Simulator: started - em 2, time is - 0
+Simulator: action done - em 2, time is - 0
+Simulator: action done - sctto 1, time is - 10
+Simulator: action done - sctto 0, time is - 10
+Simulator: started - ectto 0, time is - 10
+Simulator: started - ectto 1, time is - 10
+Simulator: action done - ectto 0, time is - 10
+Simulator: action done - ectto 1, time is - 10
+Simulator: started - sto 0, time is - 10
+Simulator: action done - sto 0, time is - 20
+Simulator: started - eto 0, time is - 20
+Simulator: action done - eto 0, time is - 20
+Simulator: started - sto 1, time is - 20
+Simulator: started - sm 0, time is - 20
+Simulator: action done - sm 0, time is - 20
+Simulator: started - em 0, time is - 20
+Simulator: action done - em 0, time is - 20
+Simulator: action done - sto 1, time is - 30
+Simulator: started - eto 1, time is - 30
+Simulator: action done - eto 1, time is - 30
+Simulator: started - sm 1, time is - 30
+Simulator: action done - sm 1, time is - 30
+Simulator: started - em 1, time is - 30
+Simulator: action done - em 1, time is - 30
+Simulator: started - sl 1, time is - 30
+Simulator: action done - sl 1, time is - 40
+Simulator: started - el 1, time is - 40
+Simulator: action done - el 1, time is - 40
+Simulator: started - sl 2, time is - 40
+Simulator: started - st 1, time is - 40
+Simulator: action done - sl 2, time is - 50
+Simulator: action done - st 1, time is - 50
+Simulator: started - el 2, time is - 50
+Simulator: started - et 1, time is - 50
+Simulator: action done - el 2, time is - 50
+Simulator: action done - et 1, time is - 50
+Simulator: started - sl 0, time is - 50
+Simulator: started - st 2, time is - 50
+Simulator: action done - sl 0, time is - 60
+Simulator: action done - st 2, time is - 60
+Simulator: started - el 0, time is - 60
+Simulator: started - et 2, time is - 60
+Simulator: action done - el 0, time is - 60
+Simulator: action done - et 2, time is - 60
+Simulator: started - st 0, time is - 60
+Simulator: action done - st 0, time is - 70
+Simulator: started - et 0, time is - 70
+Simulator: action done - et 0, time is - 70
+Simulator Done
