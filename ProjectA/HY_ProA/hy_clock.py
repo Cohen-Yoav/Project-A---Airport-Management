@@ -66,7 +66,7 @@ class Clock(metaclass=SingletonMeta):
 
         while True:
             
-            if self.signals.get_event_val("Test"):
+            if self.signals.get_event_val("test"):
                 return 
             
             # if no action is done in this cycle 
@@ -79,7 +79,7 @@ class Clock(metaclass=SingletonMeta):
                 self.signals.set_event("cena", True)
                 
             if self.Done == True:
-                self.signals.set_event("Test", True)
+                self.signals.set_event("test", True)
                 print("Clock: all done :)")
                 break
             self.notify()
@@ -104,7 +104,7 @@ class Clock(metaclass=SingletonMeta):
             observer.update(self)  
             # check if replaning is needed
             if self.signals.get_event_val("rp"):
-                self.signals.set_event("Test", self.signals.get_event_val("rp"))
+                self.signals.set_event("test", self.signals.get_event_val("rp"))
                 break
             
     def update(self, subject):

@@ -1,4 +1,3 @@
-from hy_Node import Graph
 from hy_observer import Observer
 import os
 from hy_clock import Clock
@@ -186,8 +185,33 @@ class MyState(Observer):
         # print("")
         pass
     
+    # nodes parents are done
     def isLegal(self, nodes):
-        return True
+        
+        for node in nodes:
+            
+            # if sctto - need clear lane
+            if node.action == "sctto" and self.current_taken_lanes == self.num_of_lanes:
+                return False  
+            # if sto - need clear airspace
+            if node.action == "sto" and self.airspace == True:
+                return False
+            # sl - need clear airspcae and clear lane
+            if node.action == "sl" and (self.airspace == True or self.current_taken_lanes == self.num_of_lanes):
+                return False
+            # sctto - check with config that min_day <= clock.value <= max_day
+            if node.action == "sctto":
+                # s_min_day = int(self.config.config_line_lst[int(node.pl_num)].start_day_min)
+                s_max_day = int(self.config.config_line_lst[int(node.pl_num)].start_day_max)
+                if self.clock.value > s_max_day:
+                    return False
+            # sm/sto - check with config if duration + clock.value + landing + taxi <= end_day
+            if node.action == "sm":
+                mission_duration = int(self.config.config_line_lst[int(node.pl_num)].mission_duration)
+                if self.config.config_line_lst[int(node.pl_num)].end_day != '00':
+                    end_day = int(self.config.config_line_lst[int(node.pl_num)].end_day)
+                    if end_day > mission_duration + self.clock.value + 20:
+                        return False
     
     def SetLogFile(self, log):
         self.log_file = log

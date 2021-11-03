@@ -64,7 +64,7 @@ if __name__ == "__main__":
         while True:
             
             # check if test is done or replaning is needed
-            Test = signals.get_event_val("Test")
+            Test = signals.get_event_val("test")
             if Test == True:
                 break
             elif Test != False: # replaning using the offline program
@@ -76,6 +76,7 @@ if __name__ == "__main__":
                 
                 if os.stat(log_file_path).st_size == 0: # replaning failed
                     print("Replaning Failed !")
+                    break
                     
                 # clean up at aisle 6
                 clock.Clear()
