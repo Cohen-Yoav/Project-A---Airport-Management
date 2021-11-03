@@ -6,6 +6,12 @@ from hy_state import MyState
 from hy_Interrupt import Interrupt
 from hy_config import config_file
 import os
+import sys
+
+
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 from BT_ProA import Main as mbt
 
 """
@@ -63,12 +69,13 @@ if __name__ == "__main__":
                 break
             elif Test != False: # replaning using the offline program
                 index = Test
+                print("Started Replaning for config file {} !".format(index))
                 mbt.main(index) # running the offline program with the new config file
                 cfg = os.path.join(config_path, "config" + str(index) + ".txt")       
                 log = os.path.join(log_path, "log_output_" + str(index) + ".txt") 
                 
                 if os.stat(log_file_path).st_size == 0: # replaning failed
-                    print("failed !")
+                    print("Replaning Failed !")
                     
                 # clean up at aisle 6
                 clock.Clear()
