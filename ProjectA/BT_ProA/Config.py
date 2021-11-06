@@ -25,8 +25,9 @@ def fromConfigFile(gcn_mode, config_version):
     configs_num = [float(i[6:-4]) for i in configs]
     
     if config_version != -1:
-        index = configs_num.index(config_version)
-        sorted_configs.append([configs[index], configs_num[index]])
+        for cfg in configs:
+            if config_version in cfg:
+                sorted_configs.append([cfg, config_version])
     else:    
         for i in range(len(configs)):
             sorted_configs.append([configs[i], configs_num[i]])

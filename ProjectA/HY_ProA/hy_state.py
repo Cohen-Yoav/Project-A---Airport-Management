@@ -44,11 +44,12 @@ class MyState(Observer):
         
         # in case we start take off or start landing we need a free lane         
         if action == "sctto" or action == "sl":
-            for i in range(self.num_of_lanes):
-                if self.lanes_vector[i] == -1:
-                    self.lanes_vector[i] = PlaneIndex
-                    self.current_taken_lanes += 1
-                    break
+            if not self.CheckPlane(PlaneIndex):         
+                for i in range(self.num_of_lanes):
+                    if self.lanes_vector[i] == -1:
+                        self.lanes_vector[i] = PlaneIndex
+                        self.current_taken_lanes += 1
+                        break
         
         # in case we finished take off or taxi we need to clear a lane            
         if action == "eto" or action == "et":
@@ -63,7 +64,7 @@ class MyState(Observer):
             self.airspace = True
         
         # in case we finished take off or landing we need to unlock the airspace
-        if action == "sm" or action == "st":
+        if action == "eto" or action == "el":
             self.airspace = False
         
         self.planes_vector[PlaneIndex] = self.ActionToIntger(action)
@@ -109,7 +110,7 @@ class MyState(Observer):
         # create new config file base on the current state 
         path = 'ProjectA/BT_ProA/configs/'
         self.config.config_version += 1
-        config_name = "config" + self.config.config_num + "." + self.config.config_version + ".txt"
+        config_name = "config" + str(self.config.config_num) + "." + str(self.config.config_version) + ".txt"
         filepath = os.path.join(path, config_name)
 
         new_config = open(filepath,'w')
@@ -149,7 +150,7 @@ class MyState(Observer):
             start_day_min = self.config.config_line_lst[i].start_day_min
             start_day_max = self.config.config_line_lst[i].start_day_max
             mission_duration = int(self.config.config_line_lst[i].mission_duration) - air_time # TODO H&Y what if this is less then 0?
-            max_fuel = float(self.config.config_line_lst[i].max_fuel) - float(air_time) * self.fuel_delta # TODO H&Y what if this is less then 0?
+            max_fuel = int(self.config.config_line_lst[i].max_fuel) - int(air_time * self.fuel_delta) # TODO H&Y what if this is less then 0?
             if self.config.config_line_lst[i].end_day == "00":
                 end_day = "00"
             else:
@@ -166,14 +167,14 @@ class MyState(Observer):
                 mission_duration = "0"
                 status = 5
                 
-            new_config.write('plane' + str(i) + ' ' + start_day_min + ' ' + start_day_max + ' ' + 
-                             mission_duration + ' ' + max_fuel + ' ' + end_day + ' ' + str(status) + '\n')
+            new_config.write('plane' + str(i) + ' ' + str(start_day_min) + ' ' + str(start_day_max) + ' ' + 
+                             str(mission_duration) + ' ' + str(max_fuel) + ' ' + str(end_day) + ' ' + str(status) + '\n')
         
         new_config.close()
         
         # return the new version
-        return self.config.config_num + "." + self.config.config_version
-        
+        return str(self.config.config_num) + "." + str(self.config.config_version)
+    
     def update(self, subject):
         if subject.curr_node.action == "et" and subject.action_started == False:
             self.UpdateState(int(subject.curr_node.pl_num), "done")
@@ -210,12 +211,23 @@ class MyState(Observer):
                 mission_duration = int(self.config.config_line_lst[int(node.pl_num)].mission_duration)
                 if self.config.config_line_lst[int(node.pl_num)].end_day != '00':
                     end_day = int(self.config.config_line_lst[int(node.pl_num)].end_day)
-                    if end_day > mission_duration + self.clock.value + 20:
+                    if end_day < mission_duration + self.clock.value + 20:
                         return False
+        
+        return True
     
     def SetLogFile(self, log):
         self.log_file = log
-        
+    
+    def CheckPlane(self, pl_num):
+        counter = 0
+        for i in range(self.num_of_lanes):
+            if self.lanes_vector[i] == pl_num:
+                counter +=1
+        if counter >= 1:
+            return True
+        return False
+    
 if __name__ == "__main__":
     pass
     ms = MyState(5)

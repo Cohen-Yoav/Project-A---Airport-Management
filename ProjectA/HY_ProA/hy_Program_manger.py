@@ -27,6 +27,22 @@ def make_log_path(index):
     
     return filepath
 
+def Clear_replan_files():
+    config_path = "ProjectA/BT_ProA/configs/"
+    log_path = "ProjectA/BT_ProA/logs/"
+    configs = os.listdir(config_path)
+    logs = os.listdir(log_path)
+    for cfg in configs:
+        lst = cfg.split(".")
+        if len(lst) > 2:
+            config_file_path = os.path.join(config_path, cfg)
+            os.remove(config_file_path)
+    for log in logs:
+        lst = log.split(".")
+        if len(lst) > 2:
+            log_file_path = os.path.join(log_path, log)
+            os.remove(log_file_path)
+
 if __name__ == "__main__":
     
     # create the Clock, events and simulator modules
@@ -35,6 +51,8 @@ if __name__ == "__main__":
     sim = Simulator()
     # subscribe the clock module to the events - clock is listening on events
     signals.attach(clock)
+    
+    Clear_replan_files()
     
     # create a list of all config and log files
     sorted_files = []
@@ -58,7 +76,8 @@ if __name__ == "__main__":
     
     # for each config and log file that has a valid plan run our project
     for (cfg, log, index) in zip([i[1] for i in sorted_files], [i[3] for i in sorted_files], [i[4] for i in sorted_files]):
-
+        if index != 0:
+            continue
         print(index)
         
         while True:
@@ -70,6 +89,7 @@ if __name__ == "__main__":
             elif Test != False: # replaning using the offline program
                 index = Test
                 print("Started Replaning for config file {} !".format(index))
+                
                 mbt.main(index) # running the offline program with the new config file
                 cfg = os.path.join(config_path, "config" + str(index) + ".txt")       
                 log = os.path.join(log_path, "log_output_" + str(index) + ".txt") 
@@ -89,7 +109,7 @@ if __name__ == "__main__":
 
             new_log = open(filepath,'w')
             config = config_file(cfg, str(index), 'r')
-            state = MyState(0.001, config)
+            state = MyState(0.1, config)
             cont = Controller(config, log, state)
             inter = Interrupt()
 
@@ -108,3 +128,5 @@ if __name__ == "__main__":
         clock.Clear()
         sim.Clear()
         signals.Clear()
+    
+    
