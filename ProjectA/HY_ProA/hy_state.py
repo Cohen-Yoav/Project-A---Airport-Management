@@ -133,6 +133,7 @@ class MyState(Observer):
         new_config.write('number_of_lanes = ' + str(self.num_of_lanes) + '\n')
         new_config.write('max_run_time = ' + str(self.config.max_run_time) + '\n')
         
+        counter = 0
         for i in range(self.num_of_planes):
             
             # if the plane status is 11("done") no need to insert the config line
@@ -166,9 +167,17 @@ class MyState(Observer):
                 end_day = "0"
                 mission_duration = "0"
                 status = 5
-                
-            new_config.write('plane' + str(i) + ' ' + str(start_day_min) + ' ' + str(start_day_max) + ' ' + 
-                             str(mission_duration) + ' ' + str(max_fuel) + ' ' + str(end_day) + ' ' + str(status) + '\n')
+            
+            if status == 1:
+                new_config.write('plane' + str(i) + ' ' + str(start_day_min) + ' ' + str(start_day_max) + ' ' + 
+                             str(mission_duration) + ' ' + str(max_fuel) + ' ' + str(end_day) + ' ' + str(status) + 
+                             ' ' + str(counter + 1) + ' ' + str(counter + 2) + '\n')
+                counter += 2
+            else:
+                new_config.write('plane' + str(i) + ' ' + str(start_day_min) + ' ' + str(start_day_max) + ' ' + 
+                             str(mission_duration) + ' ' + str(max_fuel) + ' ' + str(end_day) + ' ' + str(status) + 
+                             ' ' + str(counter + 1) + '\n')
+                counter += 1
         
         new_config.close()
         

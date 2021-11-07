@@ -30,8 +30,12 @@ def make_log_path(index):
 def Clear_replan_files():
     config_path = "ProjectA/BT_ProA/configs/"
     log_path = "ProjectA/BT_ProA/logs/"
+    here = os.path.dirname(os.path.realpath(__file__))
+    subdir = "Logs"
+    replan_log_path = here + "\\" + subdir 
     configs = os.listdir(config_path)
     logs = os.listdir(log_path)
+    replan_log = os.listdir(replan_log_path)
     for cfg in configs:
         lst = cfg.split(".")
         if len(lst) > 2:
@@ -42,6 +46,11 @@ def Clear_replan_files():
         if len(lst) > 2:
             log_file_path = os.path.join(log_path, log)
             os.remove(log_file_path)
+    for relog in replan_log:
+        lst = relog.split(".")
+        if len(lst) > 2:
+            re_log_file_path = os.path.join(replan_log_path, relog)
+            os.remove(re_log_file_path)
 
 if __name__ == "__main__":
     
@@ -94,7 +103,7 @@ if __name__ == "__main__":
                 cfg = os.path.join(config_path, "config" + str(index) + ".txt")       
                 log = os.path.join(log_path, "log_output_" + str(index) + ".txt") 
                 
-                if os.stat(log_file_path).st_size == 0: # replaning failed
+                if os.stat(log).st_size == 0: # replaning failed
                     print("Replaning Failed !")
                     break
                     
