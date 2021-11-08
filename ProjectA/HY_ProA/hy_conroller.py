@@ -73,8 +73,6 @@ class Controller(Observer, Subject):
             self.heap.remove(node)
             # self.log_file.write("Controller: Current Node - {}, time is - {}\n".format(self.curr_node, subject.value))
             self.SetNodeRunTime(subject.epsilon)
-            
-
                         
             self.signals.set_event("sa", self.curr_node)
             self.notify()

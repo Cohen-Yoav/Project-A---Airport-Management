@@ -32,7 +32,7 @@ class Simulator(Observer, Subject):
                 node.sorted_time -= subject.epsilon
                 # add one time unit to the air time of the plane
                 if node.action == "sm":
-                    node.air_time += 1
+                    node.air_time += 1 #TODO should this be +epsilon?
                     
         
         # insert new nodes to the heap    
