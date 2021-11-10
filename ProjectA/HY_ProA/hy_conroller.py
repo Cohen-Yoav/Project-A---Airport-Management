@@ -81,6 +81,7 @@ class Controller(Observer, Subject):
         for node in self.heap:
             if int(node.sorted_time) <= subject.value and not node.check_if_parents_done():
                 node.sorted_time += subject.epsilon
+                # self.log_file.write("Controller: Node - {}, time is - {}\n".format(node, node.sorted_time))
         
         heapq.heapify(self.heap)
             

@@ -1,44 +1,54 @@
+Simulator: Added 8.087814900270054 time units to action sctto 0
 Simulator: started - sctto 0, time is - 0
 Simulator: started - sm 2, time is - 0
 Simulator: started - sm 1, time is - 0
-Simulator: action done - sctto 0, time is - 10
 Simulator: action done - sm 1, time is - 10
-Simulator: started - ectto 0, time is - 10
 Simulator: started - em 1, time is - 10
-Simulator: action done - ectto 0, time is - 10
 Simulator: action done - em 1, time is - 10
 Simulator: started - sl 1, time is - 10
+Simulator: action done - sctto 0, time is - 19
+Simulator: Added 0.0008802766228226036 time units to action ectto 0
+Simulator: started - ectto 0, time is - 19
+Simulator: action done - ectto 0, time is - 19
 Simulator: action done - sl 1, time is - 20
 Simulator: action done - sm 2, time is - 20
 Simulator: started - el 1, time is - 20
 Simulator: action done - el 1, time is - 20
+Simulator: Added 6.2112356337459875 time units to action st 1
 Simulator: started - st 1, time is - 20
 Simulator: started - em 2, time is - 30
-Simulator: action done - st 1, time is - 30
 Simulator: action done - em 2, time is - 30
-Simulator: started - et 1, time is - 30
-Simulator: action done - et 1, time is - 30
-Simulator: started - sl 2, time is - 30
-Simulator: action done - sl 2, time is - 40
-Simulator: started - el 2, time is - 40
-Simulator: action done - el 2, time is - 40
-Simulator: started - sto 0, time is - 40
-Simulator: started - st 2, time is - 40
-Simulator: action done - sto 0, time is - 50
-Simulator: action done - st 2, time is - 50
-Simulator: started - eto 0, time is - 50
-Simulator: started - et 2, time is - 50
-Simulator: action done - eto 0, time is - 50
-Simulator: action done - et 2, time is - 50
-Simulator: started - sm 0, time is - 50
-Simulator: action done - sm 0, time is - 90
-Simulator: started - em 0, time is - 90
-Simulator: action done - em 0, time is - 90
-Simulator: started - sl 0, time is - 90
-Simulator: action done - sl 0, time is - 100
-Simulator: started - el 0, time is - 100
-Simulator: action done - el 0, time is - 100
-Simulator: started - st 0, time is - 100
-Simulator: action done - st 0, time is - 110
-Simulator: started - et 0, time is - 110
-Simulator: action done - et 0, time is - 110
+Simulator: action done - st 1, time is - 37
+Simulator: Added 0.0007106309225201299 time units to action et 1
+Simulator: started - et 1, time is - 37
+Simulator: action done - et 1, time is - 37
+Simulator: Added 9.95377851593887 time units to action sl 2
+Simulator: started - sl 2, time is - 37
+Simulator: action done - sl 2, time is - 57
+Simulator: started - el 2, time is - 57
+Simulator: action done - el 2, time is - 57
+Simulator: Added 5.877726020091612 time units to action sto 0
+Simulator: started - sto 0, time is - 57
+Simulator: started - st 2, time is - 57
+Simulator: action done - st 2, time is - 67
+Simulator: started - et 2, time is - 67
+Simulator: action done - et 2, time is - 67
+Simulator: action done - sto 0, time is - 73
+Simulator: Added 0.0006262143961896045 time units to action eto 0
+Simulator: started - eto 0, time is - 73
+Simulator: action done - eto 0, time is - 73
+Simulator: started - sm 0, time is - 73
+Simulator: action done - sm 0, time is - 113
+Simulator: Added 0.0007053522569469136 time units to action em 0
+Simulator: started - em 0, time is - 113
+Simulator: action done - em 0, time is - 113
+Simulator: Added 5.820035510640632 time units to action sl 0
+Simulator: started - sl 0, time is - 113
+Simulator: action done - sl 0, time is - 129
+Simulator: started - el 0, time is - 129
+Simulator: action done - el 0, time is - 129
+Simulator: Added 5.60409993344567 time units to action st 0
+Simulator: started - st 0, time is - 129
+Simulator: action done - st 0, time is - 145
+Simulator: started - et 0, time is - 145
+Simulator: action done - et 0, time is - 145

@@ -22,4 +22,4 @@ class Interrupt(Observer):
             self.shuffle()
             
     def shuffle(self):
-        self.action_count = 0#random.randrange(1,4)
+        self.action_count = random.randrange(1,4)
