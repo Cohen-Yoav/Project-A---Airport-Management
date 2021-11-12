@@ -1,56 +1,43 @@
-Simulator: Added 13.210669429088888 time units to action sctto 0
+Simulator: Added 9.1216 time units to action sctto 0
 Simulator: started - sctto 0, time is - 0
 Simulator: started - sm 2, time is - 0
 Simulator: started - sm 1, time is - 0
 Simulator: action done - sm 1, time is - 10
-Simulator: Added 0.0005132126302625203 time units to action em 1
+Simulator: Added 0.0009 time units to action em 1
 Simulator: started - em 1, time is - 10
 Simulator: action done - em 1, time is - 10
-Simulator: Added 9.474607648967005 time units to action sl 1
+Simulator: Added 7.9127 time units to action sl 1
 Simulator: started - sl 1, time is - 10
+Simulator: action done - sctto 0, time is - 20
 Simulator: action done - sm 2, time is - 20
-Simulator: action done - sctto 0, time is - 24
-Simulator: started - ectto 0, time is - 24
-Simulator: action done - ectto 0, time is - 24
+Simulator: started - ectto 0, time is - 20
+Simulator: action done - ectto 0, time is - 20
+Simulator: action done - sl 1, time is - 28
+Simulator: Added 0.0009 time units to action el 1
+Simulator: started - el 1, time is - 28
+Simulator: action done - el 1, time is - 28
+Simulator: started - st 1, time is - 28
+Simulator: Added 0.0007 time units to action em 2
 Simulator: started - em 2, time is - 30
-Simulator: action done - sl 1, time is - 30
 Simulator: action done - em 2, time is - 30
-Simulator: Added 0.0009549440882843543 time units to action el 1
-Simulator: started - el 1, time is - 30
-Simulator: action done - el 1, time is - 30
-Simulator: Added 9.21442325413322 time units to action st 1
-Simulator: started - st 1, time is - 30
-Simulator: action done - st 1, time is - 50
-Simulator: Added 0.00088311552351336 time units to action et 1
-Simulator: started - et 1, time is - 50
-Simulator: action done - et 1, time is - 50
-Simulator: Added 5.875112750221718 time units to action sl 2
-Simulator: started - sl 2, time is - 50
-Simulator: action done - sl 2, time is - 66
-Simulator: Added 0.0006799694140465067 time units to action el 2
-Simulator: started - el 2, time is - 66
-Simulator: action done - el 2, time is - 66
-Simulator: Added 7.946349409313103 time units to action sto 0
-Simulator: started - sto 0, time is - 66
-Simulator: started - st 2, time is - 66
-Simulator: action done - st 2, time is - 76
-Simulator: started - et 2, time is - 76
-Simulator: action done - et 2, time is - 76
-Simulator: action done - sto 0, time is - 84
-Simulator: started - eto 0, time is - 84
-Simulator: action done - eto 0, time is - 84
-Simulator: Added 26.91836981599683 time units to action sm 0
-Simulator: started - sm 0, time is - 84
-Simulator: action done - sm 0, time is - 151
-Simulator: started - em 0, time is - 151
-Simulator: action done - em 0, time is - 151
-Simulator: Added 8.520864879101115 time units to action sl 0
-Simulator: started - sl 0, time is - 151
-Simulator: action done - sl 0, time is - 170
-Simulator: started - el 0, time is - 170
-Simulator: action done - el 0, time is - 170
-Simulator: started - st 0, time is - 170
-Simulator: action done - st 0, time is - 180
-Simulator: Added 0.0005472375726670804 time units to action et 0
-Simulator: started - et 0, time is - 180
-Simulator: action done - et 0, time is - 180
+Simulator: action done - st 1, time is - 38
+Simulator: started - et 1, time is - 38
+Simulator: action done - et 1, time is - 38
+Simulator: Added 6.8660 time units to action sl 2
+Simulator: started - sl 2, time is - 38
+Simulator: action done - sl 2, time is - 55
+Simulator: Added 0.0008 time units to action el 2
+Simulator: started - el 2, time is - 55
+Simulator: action done - el 2, time is - 55
+Simulator: Added 131.5400 time units to action sto 0
+Simulator: started - sto 0, time is - 55
+Simulator: started - st 2, time is - 55
+Simulator: action done - st 2, time is - 65
+Simulator: Added 0.0007 time units to action et 2
+Simulator: started - et 2, time is - 65
+Simulator: action done - et 2, time is - 65
+Simulator: action done - sto 0, time is - 197
+Simulator: started - eto 0, time is - 197
+Simulator: action done - eto 0, time is - 197
+Controller: next state is illegal
+State: Starting Replaning for config 0

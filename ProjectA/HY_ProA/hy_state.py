@@ -7,6 +7,8 @@ from hy_events import events
 A State describe the current conditions of all the planes and lanes in the problem.
 State is a mutable object.
 """
+
+fuel: int = 5
 class MyState(Observer):
     
     """
@@ -108,6 +110,7 @@ class MyState(Observer):
     
     def StateToConfig(self, graph): 
         # create new config file base on the current state 
+        self.log_file.write("State: Starting Replaning for config {}".format(self.config.config_num))
         path = 'ProjectA/BT_ProA/configs/'
         self.config.config_version += 1
         config_name = "config" + str(self.config.config_num) + "." + str(self.config.config_version) + ".txt"
@@ -216,6 +219,12 @@ class MyState(Observer):
                 if self.clock.value > s_max_day:
                     return False
             # sm/sto - check with config if duration + clock.value + landing + taxi <= end_day
+            if node.action == "sto":
+                mission_duration = int(self.config.config_line_lst[int(node.pl_num)].mission_duration)
+                if self.config.config_line_lst[int(node.pl_num)].end_day != '00':
+                    end_day = int(self.config.config_line_lst[int(node.pl_num)].end_day)
+                    if end_day < mission_duration + self.clock.value + 30:
+                        return False
             if node.action == "sm":
                 mission_duration = int(self.config.config_line_lst[int(node.pl_num)].mission_duration)
                 if self.config.config_line_lst[int(node.pl_num)].end_day != '00':

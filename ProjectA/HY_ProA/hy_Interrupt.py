@@ -13,6 +13,9 @@ class Interrupt(Observer):
         self.shuffle()
     
     def update(self, subject):
+        if subject.curr_node.id == "sto0":
+            self.signals.set_event("rand", 131.54 * self.clock.epsilon)
+            return
         self.action_count -= 1
         if self.action_count == 0:
             action_duration = subject.curr_node.sorted_time

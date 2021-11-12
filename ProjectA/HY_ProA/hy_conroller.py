@@ -63,6 +63,7 @@ class Controller(Observer, Subject):
         
         # check if the next actions are legal, replan if illegal
         if not self.state.isLegal(nodes):
+            self.log_file.write("Controller: next state is illegal\n")
             version = self.state.StateToConfig(self.stn_graph)
             self.signals.set_event("rp", version)
             return 
@@ -92,6 +93,8 @@ class Controller(Observer, Subject):
             self.curr_node.sorted_time = int(self.config.config_line_lst[pl_number].mission_duration) * skew
         elif self.curr_node.action[0] == "e":
             self.curr_node.sorted_time = action_ending * skew
+        # elif self.curr_node.id == "sto0":
+        #     self.curr_node.sorted_time = 131 * skew
         else:
             self.curr_node.sorted_time = action_duration * skew
     

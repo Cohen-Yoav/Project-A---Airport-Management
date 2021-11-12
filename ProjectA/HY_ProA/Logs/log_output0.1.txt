@@ -1,0 +1,14 @@
+Simulator: started - sm 0, time is - 0
+Simulator: action done - sm 0, time is - 40
+Simulator: started - em 0, time is - 40
+Simulator: action done - em 0, time is - 40
+Simulator: Added 5.5177 time units to action sl 0
+Simulator: started - sl 0, time is - 40
+Simulator: action done - sl 0, time is - 56
+Simulator: started - el 0, time is - 56
+Simulator: action done - el 0, time is - 56
+Simulator: started - st 0, time is - 56
+Simulator: action done - st 0, time is - 66
+Simulator: Added 0.0008 time units to action et 0
+Simulator: started - et 0, time is - 66
+Simulator: action done - et 0, time is - 66
