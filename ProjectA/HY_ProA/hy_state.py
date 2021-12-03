@@ -70,8 +70,7 @@ class MyState(Observer):
             self.airspace = False
         
         self.planes_vector[PlaneIndex] = self.ActionToIntger(action)
-        
-        
+          
     @staticmethod
     def IntgerToAction(argument):
         switcher = {
