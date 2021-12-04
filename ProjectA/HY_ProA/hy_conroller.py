@@ -85,7 +85,6 @@ class Controller(Observer, Subject):
                 # self.log_file.write("Controller: Node - {}, time is - {}\n".format(node, node.sorted_time))
         
         heapq.heapify(self.heap)
-            
                   
     def SetNodeRunTime(self, skew):
         if self.curr_node.action == "sm":
@@ -97,7 +96,6 @@ class Controller(Observer, Subject):
         #     self.curr_node.sorted_time = 131 * skew
         else:
             self.curr_node.sorted_time = action_duration * skew
-    
     # find all ready nodes to be sent to the simulator        
     def GetNodes(self, subject):
         nodes = []

@@ -65,8 +65,7 @@ class Simulator(Observer, Subject):
     def Clear(self):
         self.heap.clear()
         self.observers.clear()
-        self.curr_node = None
-        
+        self.curr_node = None   
 
     def attach(self, observer):
         """

@@ -1,43 +1,41 @@
-Simulator: Added 9.1216 time units to action sctto 0
+Simulator: Added 6.7599 time units to action sctto 0
 Simulator: started - sctto 0, time is - 0
 Simulator: started - sm 2, time is - 0
 Simulator: started - sm 1, time is - 0
 Simulator: action done - sm 1, time is - 10
-Simulator: Added 0.0009 time units to action em 1
 Simulator: started - em 1, time is - 10
 Simulator: action done - em 1, time is - 10
-Simulator: Added 7.9127 time units to action sl 1
+Simulator: Added 5.8680 time units to action sl 1
 Simulator: started - sl 1, time is - 10
-Simulator: action done - sctto 0, time is - 20
+Simulator: action done - sctto 0, time is - 17
+Simulator: started - ectto 0, time is - 17
+Simulator: action done - ectto 0, time is - 17
 Simulator: action done - sm 2, time is - 20
-Simulator: started - ectto 0, time is - 20
-Simulator: action done - ectto 0, time is - 20
-Simulator: action done - sl 1, time is - 28
-Simulator: Added 0.0009 time units to action el 1
-Simulator: started - el 1, time is - 28
-Simulator: action done - el 1, time is - 28
-Simulator: started - st 1, time is - 28
-Simulator: Added 0.0007 time units to action em 2
+Simulator: action done - sl 1, time is - 26
+Simulator: started - el 1, time is - 26
+Simulator: action done - el 1, time is - 26
+Simulator: Added 9.1252 time units to action st 1
+Simulator: started - st 1, time is - 26
 Simulator: started - em 2, time is - 30
 Simulator: action done - em 2, time is - 30
-Simulator: action done - st 1, time is - 38
-Simulator: started - et 1, time is - 38
-Simulator: action done - et 1, time is - 38
-Simulator: Added 6.8660 time units to action sl 2
-Simulator: started - sl 2, time is - 38
-Simulator: action done - sl 2, time is - 55
-Simulator: Added 0.0008 time units to action el 2
-Simulator: started - el 2, time is - 55
-Simulator: action done - el 2, time is - 55
+Simulator: action done - st 1, time is - 46
+Simulator: started - et 1, time is - 46
+Simulator: action done - et 1, time is - 46
+Simulator: Added 7.6051 time units to action sl 2
+Simulator: started - sl 2, time is - 46
+Simulator: action done - sl 2, time is - 64
+Simulator: started - el 2, time is - 64
+Simulator: action done - el 2, time is - 64
 Simulator: Added 131.5400 time units to action sto 0
-Simulator: started - sto 0, time is - 55
-Simulator: started - st 2, time is - 55
-Simulator: action done - st 2, time is - 65
+Simulator: started - sto 0, time is - 64
+Simulator: started - st 2, time is - 64
+Simulator: action done - st 2, time is - 74
 Simulator: Added 0.0007 time units to action et 2
-Simulator: started - et 2, time is - 65
-Simulator: action done - et 2, time is - 65
-Simulator: action done - sto 0, time is - 197
-Simulator: started - eto 0, time is - 197
-Simulator: action done - eto 0, time is - 197
+Simulator: started - et 2, time is - 74
+Simulator: action done - et 2, time is - 74
+Simulator: action done - sto 0, time is - 206
+Simulator: Added 0.0009 time units to action eto 0
+Simulator: started - eto 0, time is - 206
+Simulator: action done - eto 0, time is - 206
 Controller: next state is illegal
 State: Starting Replaning for config 0
