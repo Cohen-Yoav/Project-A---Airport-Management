@@ -22,7 +22,7 @@ class Simulator(Observer, Subject):
         
         # check if there is a node and an interrupt 
         if duration != False and self.curr_node != False:
-            self.log_file.write("Simulator: Added {:.4f} time units to action {}\n".format(duration / subject.epsilon, self.curr_node))
+            self.log_file.write("Interrupt: Added {:.4f} time units to action {}\n".format(duration / subject.epsilon, self.curr_node))
             self.curr_node.sorted_time += duration
             self.signals.set_event("rand", False)
         
